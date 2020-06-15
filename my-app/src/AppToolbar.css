@@ -1,0 +1,8 @@
+.AppToolbar {
+  display: flex;
+  flex-direction: column;
+}
+
+.AppToolbar-link {
+  padding: 5px 2px;
+}

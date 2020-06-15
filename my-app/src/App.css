@@ -1,0 +1,34 @@
+.App {
+  text-align: center;
+}
+.App-header {
+  height: 50px;
+  background: #f8c471;
+  font-size: 35px;
+  text-align: left;
+  padding-left: 15px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  border-bottom: 1px black dashed;
+}
+.App-header a {
+  color: #34495e;
+}
+
+.App-toolbarAndContent {
+  display: flex;
+}
+
+.AppToolbar {
+  background: #34495e;
+  width: 10%;
+  min-width: 40px;
+}
+.AppToolbar svg {
+  color: #ec7063;
+}
+
+.App-content {
+  flex-grow: 1;
+
+  overflow-y: scroll;
+}
