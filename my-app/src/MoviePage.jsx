@@ -5,12 +5,14 @@ import { setActiveMovie, getMovieRequest } from './actions/movieActions';
 import { getReviewsRequest, postReviewRequest } from './actions/reviewActions';
 
 import { getActiveMovie } from './selectors/movieSelectors';
+import { getActiveMovieReviews } from './selectors/reviewSelectors';
 
 import StyledRatingDisplay from './StyledRatingDisplay';
 import styled, { keyframes } from 'styled-components';
 import TagDisplay from './TagDisplay';
 
 import ReviewForm from './ReviewForm';
+import Reviews from './Reviews';
 
 import CheckIcon from '@material-ui/icons/Check';
 import ClearIcon from '@material-ui/icons/Clear';
@@ -46,7 +48,7 @@ const MoviePage = (props) => {
       props.getReviewsRequest(query);
     });
   }, []); //
-  const { name, activeMovie } = props;
+  const { name, activeMovie, activeMovieReviews } = props;
 
   if (!activeMovie) {
     return <div>Loading...</div>;
@@ -57,7 +59,8 @@ const MoviePage = (props) => {
   };
 
   const onSubmit = () => {
-    props.postReviewRequest(values);
+    const query = { ...values, movieId: props.match.params.id };
+    props.postReviewRequest(query);
   };
 
   const StatusIcon = activeMovie.fixed ? CheckIcon : ClearIcon;
@@ -89,12 +92,14 @@ const MoviePage = (props) => {
         <h1>REVIEWS?</h1>
         <div>List reviews here</div>
         <ReviewForm onChange={onChange} values={values} onSubmit={onSubmit} />
+        <Reviews items={activeMovieReviews} />
       </div>
     </div>
   );
 };
 const mapStateToProps = (state) => ({
   activeMovie: getActiveMovie(state),
+  activeMovieReviews: getActiveMovieReviews(state),
 });
 const mapDispatchToProps = (dispatch) => ({
   setActiveMovieRequest: (id) => dispatch(setActiveMovie(id)),

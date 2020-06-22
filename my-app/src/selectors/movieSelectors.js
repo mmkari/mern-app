@@ -23,4 +23,4 @@ const getActiveMovie = createSelector(
   }
 );
 
-export { getMovies, getMoviesById, getActiveMovie };
+export { getMovies, getMoviesById, getActiveMovie, getActiveMovieId };
