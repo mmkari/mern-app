@@ -4,6 +4,9 @@ import { getActiveMovieId } from './movieSelectors';
 
 const getReviewsById = (state) => state.reviewReducers.reviewsById;
 
+const getAverageRatingsByMovieId = (state) =>
+  state.reviewReducers.averageRatingsByMovieId;
+
 const getReviews = createSelector(
   [getReviewsById],
   (reviewsById) => {
@@ -24,4 +27,9 @@ const getActiveMovieReviews = createSelector(
   }
 );
 
-export { getReviews, getReviewsById, getActiveMovieReviews };
+export {
+  getReviews,
+  getReviewsById,
+  getActiveMovieReviews,
+  getAverageRatingsByMovieId,
+};

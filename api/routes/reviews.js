@@ -11,6 +11,44 @@ router.get("/", function (req, res, next) {
   res.send(databaseConnection);
 });
 
+router.get("/reviews/aggregate/average_rating_by_movie", function (
+  req,
+  res,
+  next
+) {
+  const hasQuery = Object.keys(req.query).length !== 0;
+
+  let query = undefined;
+  let options = [];
+  if (hasQuery) {
+    const { movieId } = req.query || {};
+
+    if (movieId) {
+      // TODO handle array of IDs
+      query = {
+        movieId: movieId,
+      };
+      options.push({ $match: query });
+    }
+  }
+
+  options.push({
+    $group: {
+      _id: "$movieId",
+      averageRating: { $avg: "$rating" },
+    },
+  });
+
+  Review.aggregate(options)
+    .exec()
+    .then((doc) => {
+      res.status(200).json(doc);
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err });
+    });
+});
+
 router.get("/reviews", function (req, res, next) {
   const hasQuery = Object.keys(req.query).length !== 0;
 

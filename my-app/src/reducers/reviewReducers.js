@@ -6,6 +6,7 @@ import {
   POST_REVIEW_SUCCESS,
   PATCH_REVIEW_SUCCESS,
   SET_ACTIVE_REVIEW,
+  GET_REVIEW_AVERAGE_RATINGS_SUCCESS,
   // SET_FILTERED_IDS,
 } from '../actions/reviewActions';
 
@@ -15,6 +16,7 @@ const initialState = {
   activeReviewId: null,
   filteredIds: null, // TODO decouple table filtering from review store
   reviewsById: {},
+  averageRatingsByMovieId: {}, // TODO move elsewhere
 };
 
 const parseReview = (review) => ({
@@ -33,6 +35,14 @@ export default (state = initialState, action) =>
       // case SET_FILTERED_IDS:
       //   draft.filteredIds = action.payload;
       //   return;
+      case GET_REVIEW_AVERAGE_RATINGS_SUCCESS: {
+        action.payload.forEach((group) => {
+          if (group._id) {
+            draft.averageRatingsByMovieId[group._id] = group.averageRating;
+          }
+        });
+        return;
+      }
       case GET_REVIEWS_SUCCESS:
         action.payload.forEach((review) => {
           if (review._id) {

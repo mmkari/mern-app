@@ -8,6 +8,8 @@ export const PATCH_REVIEW_SUCCESS = 'actions/PATCH_REVIEW_SUCCESS';
 export const SET_ACTIVE_REVIEW = 'actions/SET_ACTIVE_REVIEW';
 // export const SET_FILTERED_IDS = 'actions/SET_FILTERED_IDS'; // decouple
 export const GET_REVIEW_SUCCESS = 'actions/GET_REVIEW_SUCCESS';
+export const GET_REVIEW_AVERAGE_RATINGS_SUCCESS =
+  'actions/GET_REVIEW_AVERAGE_RATINGS_SUCCESS';
 
 export const setActiveReview = (id) => {
   return {
@@ -22,6 +24,14 @@ export const setActiveReview = (id) => {
 //     payload: ids,
 //   };
 // };
+
+export const getReviewAverageRatingsSuccess = (data, query) => {
+  return {
+    type: GET_REVIEW_AVERAGE_RATINGS_SUCCESS,
+    payload: data,
+    query,
+  };
+};
 
 export const getReviewsSuccess = (data, query) => {
   return {
@@ -67,9 +77,11 @@ export const getReviewRequest = (id) => (dispatch) =>
     })
     .catch();
 
-export const getReviewsAggregateRatingGroupsRequest = (query) => (dispatch) =>
-  apiRequest('reviews/reviews/aggregate/rating_groups')
-    .then((res) => res)
+export const getReviewsAggregateAverageRatingByMovieRequest = (query) => (
+  dispatch
+) =>
+  apiRequest('reviews/reviews/aggregate/average_rating_by_movie', { query })
+    .then((res) => dispatch(getReviewAverageRatingsSuccess(res, query)))
     .catch();
 // .then((res) => dispatch(getReviewsSuccess(res, query)))
 

@@ -8,6 +8,7 @@ import { StarPicker } from 'react-star-picker';
 import { Link, withRouter } from 'react-router-dom';
 import DeleteConfirmationDialog from './DeleteConfirmationDialog';
 import TagDisplay from './TagDisplay';
+import RatingDisplay from 'react-verdict';
 
 const LinkCell = ({ cellData, rowData, rowIndex, history }) => {
   return <Link to={`/item/${rowData.id}`}>{cellData}</Link>;
@@ -29,6 +30,7 @@ class MovieTable extends React.Component {
       sort,
       sortBy,
       sortDirection,
+      averageRatingsByMovieId,
     } = this.props;
 
     const tableHeight = !Number.isNaN(height) ? height : 500;
@@ -68,10 +70,20 @@ class MovieTable extends React.Component {
                   />
 
                   <Column
-                    label="Value"
-                    dataKey="value"
+                    label="Average Rating"
+                    dataKey="id"
                     width={3 * unitWidth}
                     disableSort
+                    cellRenderer={({ cellData: id, rowIndex, rowData }) => {
+                      const avgRating =
+                        averageRatingsByMovieId && averageRatingsByMovieId[id]
+                          ? averageRatingsByMovieId[id]
+                          : null;
+                      if (avgRating) {
+                        return <RatingDisplay value={avgRating} />;
+                      }
+                      return null;
+                    }}
                   />
                   <Column
                     label="Fixed"

@@ -2,10 +2,17 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 
 import { setActiveMovie, getMovieRequest } from './actions/movieActions';
-import { getReviewsRequest, postReviewRequest } from './actions/reviewActions';
+import {
+  getReviewsRequest,
+  postReviewRequest,
+  getReviewsAggregateAverageRatingByMovieRequest,
+} from './actions/reviewActions';
 
 import { getActiveMovie } from './selectors/movieSelectors';
-import { getActiveMovieReviews } from './selectors/reviewSelectors';
+import {
+  getActiveMovieReviews,
+  getAverageRatingsByMovieId,
+} from './selectors/reviewSelectors';
 
 import StyledRatingDisplay from './StyledRatingDisplay';
 import styled, { keyframes } from 'styled-components';
@@ -46,9 +53,16 @@ const MoviePage = (props) => {
       // query reviews for this movie
       const query = { movieId: id };
       props.getReviewsRequest(query);
+      // get average rating for this movie
+      props.getAverageRatingsByMovie(query);
     });
   }, []); //
-  const { name, activeMovie, activeMovieReviews } = props;
+  const {
+    name,
+    activeMovie,
+    activeMovieReviews,
+    averageRatingsByMovieId,
+  } = props;
 
   if (!activeMovie) {
     return <div>Loading...</div>;
@@ -65,13 +79,21 @@ const MoviePage = (props) => {
 
   const StatusIcon = activeMovie.fixed ? CheckIcon : ClearIcon;
 
+  const avgRating = averageRatingsByMovieId
+    ? averageRatingsByMovieId[props.match.params.id]
+    : null;
+
   return (
     <div>
+      The aggreagates in main table need to be stored in DB as sorting requires
+      them to be available for EVERY movie -> need to use cached ratings in
+      table view that are re-calculated periodically (e.g. at 23:59, or manually
+      from admin tools)
       <h1>{activeMovie.title}</h1>
       <MoviePageContainer>
         <Container>
           <label>RATING</label>
-          <StyledRatingDisplay value={activeMovie.rating} showRatingOnHover />
+          <StyledRatingDisplay value={avgRating || 0} showRatingOnHover />
 
           <label>TAGS</label>
           {activeMovie.tags ? (
@@ -100,6 +122,7 @@ const MoviePage = (props) => {
 const mapStateToProps = (state) => ({
   activeMovie: getActiveMovie(state),
   activeMovieReviews: getActiveMovieReviews(state),
+  averageRatingsByMovieId: getAverageRatingsByMovieId(state),
 });
 const mapDispatchToProps = (dispatch) => ({
   setActiveMovieRequest: (id) => dispatch(setActiveMovie(id)),
@@ -107,6 +130,9 @@ const mapDispatchToProps = (dispatch) => ({
   //
   getReviewsRequest: (query) => dispatch(getReviewsRequest(query)),
   postReviewRequest: (data) => dispatch(postReviewRequest(data)),
+  //
+  getAverageRatingsByMovie: (query) =>
+    dispatch(getReviewsAggregateAverageRatingByMovieRequest(query)),
 });
 export default connect(
   mapStateToProps,

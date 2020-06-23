@@ -16,12 +16,16 @@ import {
   patchMovieRequest,
 } from './actions/movieActions';
 import { setFilters } from './actions/movieTableActions';
+
+import { getReviewsAggregateAverageRatingByMovieRequest } from './actions/reviewActions';
+
 import { getMovies } from './selectors/movieSelectors';
 import {
   getMoviesFiltered,
   getFilters,
   getFilterTags,
 } from './selectors/movieTableSelectors';
+import { getAverageRatingsByMovieId } from './selectors/reviewSelectors';
 
 import useContainerDimensions from './hooks';
 
@@ -107,6 +111,8 @@ const ratingFilterOptions = [
 class Movies extends React.Component {
   componentWillMount() {
     this.getMovies();
+    // TODO get average reviews in saga
+    this.props.getAverageRatingsByMovie();
   }
 
   updateRating = (id, rating) => {
@@ -123,7 +129,7 @@ class Movies extends React.Component {
   };
 
   getMovies(query) {
-    this.props.getMoviesRequest(query).then((res) => {});
+    this.props.getMoviesRequest(query);
   }
 
   addTagFilter = (option) => {
@@ -181,8 +187,16 @@ class Movies extends React.Component {
   };
 
   render() {
-    const { data, onRatingChange, filters, filterTags } = this.props;
+    const {
+      data,
+      onRatingChange,
+      filters,
+      filterTags,
+      averageRatingsByMovieId,
+    } = this.props;
     const { filterTag, sortBy, sortDirection, minRating, maxRating } = filters;
+
+    console.log('AVG0,', averageRatingsByMovieId);
 
     return (
       <MovieContainer>
@@ -269,6 +283,7 @@ class Movies extends React.Component {
               onSort={this.onSort}
               sortBy={sortBy}
               sortDirection={sortDirection}
+              averageRatingsByMovieId={averageRatingsByMovieId}
             />
           </div>
         )}
@@ -282,6 +297,7 @@ const mapStateToProps = (state) => ({
   movies: getMoviesFiltered(state),
   filters: getFilters(state),
   filterTags: getFilterTags(state),
+  averageRatingsByMovieId: getAverageRatingsByMovieId(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -291,6 +307,9 @@ const mapDispatchToProps = (dispatch) => ({
   patchMovieRequest: (id, data) => dispatch(patchMovieRequest(id, data)),
   //
   setFilters: (filters) => dispatch(setFilters(filters)),
+  // ratings
+  getAverageRatingsByMovie: () =>
+    dispatch(getReviewsAggregateAverageRatingByMovieRequest()),
 });
 
 export default connect(
