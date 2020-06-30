@@ -19,5 +19,8 @@ let Movie = new Schema({
   tags: {
     type: [String], // tag IDs
   },
+  reviews: {
+    type: [{ type: Schema.Types.ObjectId, ref: "Review" }],
+  },
 });
 module.exports = mongoose.model("Movie", Movie);

@@ -3,6 +3,7 @@ const router = express.Router();
 const mongoose = require("mongoose");
 
 let Review = require("../bin/review.model");
+let Movie = require("../bin/test.model");
 
 // Variable to be sent to Frontend with Database status
 let databaseConnection = "Waiting for Database response...";
@@ -128,6 +129,24 @@ router.post("/reviews", function (req, res) {
   review
     .save()
     .then((review) => {
+      // NEED TO ADD REVIEW TO CORRESPONDING MOVIE
+      console.log("SAVED REVIEW");
+
+      Movie.findById(req.body.movieId)
+        .exec()
+        .then((movie) => {
+          console.log("FOUND MOVIE");
+
+          movie.reviews.push(review._id);
+          movie.save().catch((err) => {
+            res.status(500).json({ error: err });
+          });
+          // res.status(200).json(doc);
+        })
+        .catch((err) => {
+          res.status(500).json({ error: err });
+        });
+
       res.status(200).json(review);
     })
     .catch((err) => {
