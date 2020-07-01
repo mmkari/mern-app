@@ -22,7 +22,7 @@ const parseMovie = (movie) => ({
   title: movie.title,
   fixed: movie.fixed,
   rating: movie.rating,
-  tags: movie.tags,
+  tags: movie.tags || [], // preserve empty arrays
 });
 
 export default (state = initialState, action) =>

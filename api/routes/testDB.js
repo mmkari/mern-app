@@ -68,9 +68,64 @@ router.get("/movies", function (req, res, next) {
       };
     }
   }
+  // Movie.find(query)
+  //   .populate("reviews", "rating")
+  //   .sort(sorting)
+  //   .exec()
+  //   .then((docs) => {
+  //     res.status(200).json(docs);
+  //   })
+  //   .catch((err) => {
+  //     res.status(500).json({ error: err });
+  //   });
 
-  Movie.find(query)
-    .sort(sorting)
+  let options = [{ $match: { $and: [{ rating: { $gte: 1 } }] } }];
+  // if (query) {
+  //   options = [
+  //     ...options,
+  //     {
+  //       $match: { $and: [...Object.values(query || {})].filter((i) => !!i) },
+  //     },
+  //   ];
+  // }
+
+  options = [
+    {
+      $lookup: {
+        from: "reviews",
+        let: { review_ids: { $ifNull: ["$reviews", []] } },
+        pipeline: [
+          {
+            $match: {
+              $expr: { $in: ["$_id", "$$review_ids"] },
+            },
+          },
+          { $project: { rating: "$rating", _id: 0 } },
+        ],
+        as: "movieReviews",
+      },
+    },
+    {
+      $addFields: {
+        averageRating: {
+          $avg: {
+            $map: {
+              input: "$movieReviews",
+              in: "$$this.rating",
+            },
+          },
+        },
+      },
+    },
+    {
+      $unset: "movieReviews",
+    },
+  ];
+
+  // .sort(sorting)
+
+  // NOTE aggregate drops empty array fields
+  Movie.aggregate(options)
     .exec()
     .then((docs) => {
       res.status(200).json(docs);
