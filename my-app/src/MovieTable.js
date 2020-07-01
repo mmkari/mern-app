@@ -71,16 +71,19 @@ class MovieTable extends React.Component {
 
                   <Column
                     label="Average Rating"
-                    dataKey="id"
+                    dataKey="averageRating"
                     width={3 * unitWidth}
-                    disableSort
-                    cellRenderer={({ cellData: id, rowIndex, rowData }) => {
-                      const avgRating =
-                        averageRatingsByMovieId && averageRatingsByMovieId[id]
-                          ? averageRatingsByMovieId[id]
-                          : null;
-                      if (avgRating) {
-                        return <RatingDisplay value={avgRating} />;
+                    cellRenderer={({
+                      cellData: averageRating,
+                      rowIndex,
+                      rowData,
+                    }) => {
+                      // const avgRating =
+                      //   averageRatingsByMovieId && averageRatingsByMovieId[id]
+                      //     ? averageRatingsByMovieId[id]
+                      //     : null;
+                      if (averageRating) {
+                        return <RatingDisplay value={averageRating || null} />;
                       }
                       return null;
                     }}

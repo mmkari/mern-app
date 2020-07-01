@@ -40,56 +40,24 @@ router.get("/movies/aggregate/rating_groups", function (req, res, next) {
 
 router.get("/movies", function (req, res, next) {
   const hasQuery = Object.keys(req.query).length !== 0;
+  const { filterTag, sortBy, sortDirection, minRating, maxRating } =
+    req.query || {};
 
   // TODO external filter param parse
   let query = undefined;
   let sorting = undefined;
-  if (hasQuery) {
-    const { filterTag, sortBy, sortDirection, minRating, maxRating } =
-      req.query || {};
+  const preFilters = []; // filters other than those targeting average rating
 
-    if (filterTag) {
-      query = {
-        tags: { $in: [filterTag] },
-      };
-    }
-    if (sortBy) {
-      sorting = {
-        [sortBy]: resolveDirection(sortDirection),
-      };
-    }
-    if (minRating) {
-      query = { ...(query || {}), rating: { $gte: minRating } };
-    }
-    if (maxRating) {
-      query = {
-        ...(query || {}),
-        rating: { ...(query ? query.rating || {} : {}), $lte: maxRating },
-      };
-    }
+  // add filtering for other than rating related filters
+  if (filterTag) {
+    preFilters.push({
+      $match: { tags: { $in: [filterTag] } },
+    });
   }
-  // Movie.find(query)
-  //   .populate("reviews", "rating")
-  //   .sort(sorting)
-  //   .exec()
-  //   .then((docs) => {
-  //     res.status(200).json(docs);
-  //   })
-  //   .catch((err) => {
-  //     res.status(500).json({ error: err });
-  //   });
 
-  let options = [{ $match: { $and: [{ rating: { $gte: 1 } }] } }];
-  // if (query) {
-  //   options = [
-  //     ...options,
-  //     {
-  //       $match: { $and: [...Object.values(query || {})].filter((i) => !!i) },
-  //     },
-  //   ];
-  // }
-
-  options = [
+  const options = [
+    ...preFilters,
+    // aggregate average rating for each movie
     {
       $lookup: {
         from: "reviews",
@@ -122,7 +90,24 @@ router.get("/movies", function (req, res, next) {
     },
   ];
 
-  // .sort(sorting)
+  // filter movies by average rating here
+  if (hasQuery) {
+    if (minRating) {
+      options.push({
+        $match: { averageRating: { $gte: Number(minRating) } },
+      });
+    }
+    if (maxRating) {
+      options.push({
+        $match: { averageRating: { $lte: Number(maxRating) } },
+      });
+    }
+  }
+
+  // sort movies according to sorting options
+  if (sortBy) {
+    options.push({ $sort: { [sortBy]: resolveDirection(sortDirection) } });
+  }
 
   // NOTE aggregate drops empty array fields
   Movie.aggregate(options)
