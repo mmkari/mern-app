@@ -7,7 +7,6 @@ import Add from '@material-ui/icons/Add';
 const getInitialValues = () => ({
   title: '',
   fixed: true,
-  rating: null,
   date: null,
   tagOption: null,
 });

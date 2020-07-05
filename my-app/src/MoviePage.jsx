@@ -1,7 +1,11 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-import { setActiveMovie, getMovieRequest } from './actions/movieActions';
+import {
+  setActiveMovie,
+  getMovieRequest,
+  patchMovieRequest,
+} from './actions/movieActions';
 import {
   getReviewsRequest,
   postReviewRequest,
@@ -77,6 +81,11 @@ const MoviePage = (props) => {
     props.postReviewRequest(query);
   };
 
+  // TODO use patchMovieRequest
+  const updateRating = (id, rating) => {
+    // this.props.patchMovieRequest(id, { rating });
+  };
+
   const StatusIcon = activeMovie.fixed ? CheckIcon : ClearIcon;
 
   const avgRating = averageRatingsByMovieId
@@ -133,6 +142,7 @@ const mapDispatchToProps = (dispatch) => ({
   //
   getAverageRatingsByMovie: (query) =>
     dispatch(getReviewsAggregateAverageRatingByMovieRequest(query)),
+  patchMovieRequest: (id, data) => dispatch(patchMovieRequest(id, data)),
 });
 export default connect(
   mapStateToProps,

@@ -13,7 +13,6 @@ import {
   getMoviesRequest,
   deleteMovieRequest,
   postMovieRequest,
-  patchMovieRequest,
 } from './actions/movieActions';
 import { setFilters } from './actions/movieTableActions';
 
@@ -115,10 +114,6 @@ class Movies extends React.Component {
     this.props.getAverageRatingsByMovie();
   }
 
-  updateRating = (id, rating) => {
-    this.props.patchMovieRequest(id, { rating });
-  };
-
   onSubmit = (data) => {
     return this.props
       .postMovieRequest(data)
@@ -187,16 +182,8 @@ class Movies extends React.Component {
   };
 
   render() {
-    const {
-      data,
-      onRatingChange,
-      filters,
-      filterTags,
-      averageRatingsByMovieId,
-    } = this.props;
+    const { data, filters, filterTags, averageRatingsByMovieId } = this.props;
     const { filterTag, sortBy, sortDirection, minRating, maxRating } = filters;
-
-    console.log('AVG0,', averageRatingsByMovieId);
 
     return (
       <MovieContainer>
@@ -278,7 +265,6 @@ class Movies extends React.Component {
             <MovieTable
               height={dimensions.height - 50}
               data={this.props.movies}
-              onRatingChange={this.updateRating}
               deleteMovie={this.props.deleteMovieRequest}
               onSort={this.onSort}
               sortBy={sortBy}
@@ -304,7 +290,6 @@ const mapDispatchToProps = (dispatch) => ({
   getMoviesRequest: (query) => dispatch(getMoviesRequest(query)),
   deleteMovieRequest: (id) => dispatch(deleteMovieRequest(id)),
   postMovieRequest: (data) => dispatch(postMovieRequest(data)),
-  patchMovieRequest: (id, data) => dispatch(patchMovieRequest(id, data)),
   //
   setFilters: (filters) => dispatch(setFilters(filters)),
   // ratings

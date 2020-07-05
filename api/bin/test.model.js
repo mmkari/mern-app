@@ -7,9 +7,6 @@ let Movie = new Schema({
   value: {
     type: String,
   },
-  rating: {
-    type: Number,
-  },
   fixed: {
     type: Boolean,
   },

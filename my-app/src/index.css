@@ -18,3 +18,8 @@ code {
   padding: 0 2.5px;
 }
 /* end "NOTE TODO clean up/remove" */
+
+.ReactVirtualized__Table__rowColumn {
+  display: flex;
+  justify-content: center;
+}

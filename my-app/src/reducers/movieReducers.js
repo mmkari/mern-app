@@ -21,7 +21,6 @@ const parseMovie = (movie) => ({
   id: movie._id,
   title: movie.title,
   fixed: movie.fixed,
-  rating: movie.rating,
   averageRating: movie.averageRating,
   tags: movie.tags || [], // preserve empty arrays
 });

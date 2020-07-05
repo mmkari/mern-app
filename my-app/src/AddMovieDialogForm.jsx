@@ -6,8 +6,6 @@ import SwitchInput from './SwitchInput';
 import Button from './Button';
 import TagSelect from './TagSelect';
 
-import { StarPicker } from 'react-star-picker';
-
 // import SwitchButton from './SwitchButton';
 import SwitchButton from 'react-switch-input';
 
@@ -25,10 +23,6 @@ const AddMovieDialogForm = (props) => {
         onChange={(val) => onChange('title', val)}
       />
       {/* <TagInput /> */}
-      <StarPicker
-        onChange={(value) => onChange('rating', value)}
-        value={values.rating}
-      />
       <label>Fixed:</label>
       <SwitchButton
         checked={values.fixed}

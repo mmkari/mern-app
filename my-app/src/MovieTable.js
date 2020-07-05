@@ -40,7 +40,7 @@ class MovieTable extends React.Component {
         <div style={{ backgroundColor: 'ghostwhite' }}>
           <AutoSizer disableHeight>
             {({ width }) => {
-              const unitWidth = width / 13.0;
+              const unitWidth = width / 9.0;
               return (
                 <Table
                   ref="Table"
@@ -93,21 +93,6 @@ class MovieTable extends React.Component {
                     dataKey="fixed"
                     width={3 * unitWidth}
                     disableSort
-                  />
-                  <Column
-                    label="Rating"
-                    dataKey="rating"
-                    width={4 * unitWidth}
-                    cellRenderer={({ cellData, rowIndex, rowData }) => {
-                      return (
-                        <StarPicker
-                          value={cellData}
-                          onChange={(value) =>
-                            onRatingChange(rowData.id, value)
-                          }
-                        />
-                      );
-                    }}
                   />
                   <Column
                     label="Manage"
