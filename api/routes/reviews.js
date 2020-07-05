@@ -125,32 +125,35 @@ router.patch("/reviews/:id", function (req, res, next) {
 });
 
 router.post("/reviews", function (req, res) {
-  let review = new Review(req.body);
-  review
-    .save()
-    .then((review) => {
-      // NEED TO ADD REVIEW TO CORRESPONDING MOVIE
-      console.log("SAVED REVIEW");
-
-      Movie.findById(req.body.movieId)
-        .exec()
-        .then((movie) => {
-          console.log("FOUND MOVIE");
-
-          movie.reviews.push(review._id);
+  Movie.findById(req.body.movieId)
+    .exec()
+    .then((movie) => {
+      // create review
+      let review = new Review({
+        ...req.body,
+        movieId: movie._id,
+      });
+      review
+        .save()
+        .then((result) => {
+          // NEED TO ADD REVIEW TO CORRESPONDING MOVIE
+          movie.reviews.push(result._id);
           movie.save().catch((err) => {
             res.status(500).json({ error: err });
           });
-          // res.status(200).json(doc);
+
+          res.status(200).json(result);
         })
         .catch((err) => {
-          res.status(500).json({ error: err });
+          console.log("ERR", err);
+
+          res.status(400).send(err);
         });
 
-      res.status(200).json(review);
+      // res.status(200).json(doc);
     })
     .catch((err) => {
-      res.status(400).send("adding failed");
+      res.status(500).json({ error: err });
     });
 });
 
