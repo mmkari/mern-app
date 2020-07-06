@@ -6,8 +6,11 @@ import AddMovieDialog from './AddMovieDialog';
 import TagSelect from './TagSelect';
 import Tag from './Tag';
 import SelectInput from './SelectInput';
+import SwitchButton from 'react-switch-input';
 
 // import { SortDirection } from 'react-virtualized';
+import ListIcon from '@material-ui/icons/List';
+import ViewModuleIcon from '@material-ui/icons/ViewModule';
 
 import {
   getMoviesRequest,
@@ -257,7 +260,16 @@ class Movies extends React.Component {
               </FilterContainer>
               <Toolbar>
                 <Count value={this.props.movies.length} />
-                TODO table/grid toggle buttons
+                <ListIcon />
+                <SwitchButton
+                  checked={false}
+                  disabled
+                  width={40}
+                  buttonRadius={12}
+                  buttonPinRadius={12}
+                  buttonBorderWidth={2}
+                />
+                <ViewModuleIcon />
               </Toolbar>
               {/* <Sort /> */}
             </ActiveTableFilters>
