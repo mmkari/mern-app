@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 
-let Tag = require("../bin/tag.model");
+let Tag = require("../models/tag.model");
 
 // Variable to be sent to Frontend with Database status
 let databaseConnection = "Waiting for Database response...";
