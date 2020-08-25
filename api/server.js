@@ -11,7 +11,7 @@ const bodyParser = require("body-parser");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
-var testDBRouter = require("./routes/testDB");
+var moviesRouter = require("./routes/movies");
 var tagsRouter = require("./routes/tags");
 var reviewsRouter = require("./routes/reviews");
 
@@ -32,7 +32,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.options("*", cors()); // allow pre-flight for all routes (after this)
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
-app.use("/testDB", testDBRouter);
+app.use("/movies", moviesRouter);
 app.use("/tags", tagsRouter);
 app.use("/reviews", reviewsRouter);
 

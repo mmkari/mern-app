@@ -91,7 +91,7 @@ const App = () => {
   // }
 
   // callDB() {
-  //   fetch('http://localhost:9000/testDB')
+  //   fetch('http://localhost:9000/movies')
   //     .then(res => res.text())
   //     .then(res => this.setState({ dbResponse: res }))
   //     .catch(err => err)

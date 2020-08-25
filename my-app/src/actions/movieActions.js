@@ -60,7 +60,7 @@ export const patchMovieSuccess = (id, data) => {
 };
 
 export const getMovieRequest = (id) => (dispatch) =>
-  apiRequest(`testDB/movies/${id}`)
+  apiRequest(`movies/movies/${id}`)
     .then((res) => {
       dispatch(getMovieSuccess(res));
       return res;
@@ -68,13 +68,13 @@ export const getMovieRequest = (id) => (dispatch) =>
     .catch();
 
 export const getMoviesAggregateRatingGroupsRequest = (query) => (dispatch) =>
-  apiRequest('testDB/movies/aggregate/rating_groups')
+  apiRequest('movies/movies/aggregate/rating_groups')
     .then((res) => res)
     .catch();
 // .then((res) => dispatch(getMoviesSuccess(res, query)))
 
 export const getMoviesRequest = (query) => (dispatch) =>
-  apiRequest('testDB/movies', {
+  apiRequest('movies/movies', {
     query: query,
   })
     .then((res) => dispatch(getMoviesSuccess(res, query)))
@@ -87,7 +87,7 @@ export const getMoviesRequest = (query) => (dispatch) =>
     .catch();
 
 export const postMovieRequest = (data) => (dispatch) =>
-  apiRequest(`testDB/movies`, {
+  apiRequest(`movies/movies`, {
     method: 'post',
     data: data,
   })
@@ -97,7 +97,7 @@ export const postMovieRequest = (data) => (dispatch) =>
     .catch();
 
 export const patchMovieRequest = (id, data) => (dispatch) =>
-  apiRequest(`testDB/movies/${id}`, {
+  apiRequest(`movies/movies/${id}`, {
     method: 'patch',
     data: data,
   })
@@ -107,6 +107,6 @@ export const patchMovieRequest = (id, data) => (dispatch) =>
     .catch();
 
 export const deleteMovieRequest = (id) => (dispatch) =>
-  apiRequest(`testDB/movies/${id}`, { method: 'delete' })
+  apiRequest(`movies/movies/${id}`, { method: 'delete' })
     .then(() => dispatch(deleteMovieSuccess(id)))
     .catch();
