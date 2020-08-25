@@ -3,7 +3,7 @@ const router = express.Router();
 const mongoose = require("mongoose");
 
 let Review = require("../models/review.model");
-let Movie = require("../models/test.model");
+let Movie = require("../models/movie.model");
 
 // Variable to be sent to Frontend with Database status
 let databaseConnection = "Waiting for Database response...";
