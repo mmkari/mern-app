@@ -30,6 +30,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.options("*", cors()); // allow pre-flight for all routes (after this)
+app.use(
+  "/static",
+  express.static(path.join(__dirname, "../client/build/static"))
+);
+
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/movies", moviesRouter);
