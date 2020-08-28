@@ -9,11 +9,7 @@ var logger = require("morgan");
 var cors = require("cors");
 const bodyParser = require("body-parser");
 
-var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
-var moviesRouter = require("./routes/movies");
-var tagsRouter = require("./routes/tags");
-var reviewsRouter = require("./routes/reviews");
+var router = require("./routes");
 
 var app = express();
 // require db connection
@@ -37,11 +33,7 @@ app.use(
   express.static(path.join(__dirname, "../client/build/static"))
 );
 
-app.use("/", indexRouter);
-app.use("/users", usersRouter);
-app.use("/movies", moviesRouter);
-app.use("/tags", tagsRouter);
-app.use("/reviews", reviewsRouter);
+app.use("/", router);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
