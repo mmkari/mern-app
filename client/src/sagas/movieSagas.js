@@ -13,7 +13,7 @@ import { getFilters } from '../selectors/movieTableSelectors';
 
 export function* getMoviesSaga(query) {
   try {
-    const response = yield call(apiRequest, 'movies/movies', {
+    const response = yield call(apiRequest, 'movies', {
       query: query,
     });
 
