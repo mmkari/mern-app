@@ -15,7 +15,7 @@ router.use("/api/reviews", reviewsRouter);
 
 // serve client
 router.get("/", function (req, res, next) {
-  res.sendFile(path.join(__dirname, "../../client/build/index.html"));
+  res.sendFile(path.join(__dirname, "../client/build/index.html"));
   // res.render("index", { title: "Express" });
 });
 
