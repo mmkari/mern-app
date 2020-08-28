@@ -43,7 +43,7 @@ export const patchTagSuccess = (id, data) => {
 };
 
 export const getTagRequest = (id) => (dispatch) =>
-  apiRequest(`tags/tags/${id}`)
+  apiRequest(`tags/${id}`)
     .then((res) => {
       dispatch(getTagSuccess(res));
       return res;
@@ -51,12 +51,12 @@ export const getTagRequest = (id) => (dispatch) =>
     .catch();
 
 export const getTagsRequest = () => (dispatch) =>
-  apiRequest('tags/tags')
+  apiRequest('tags')
     .then((res) => dispatch(getTagsSuccess(res)))
     .catch();
 
 export const postTagRequest = (data) => (dispatch) =>
-  apiRequest(`tags/tags`, {
+  apiRequest(`tags`, {
     method: 'post',
     data: data,
   })
@@ -66,7 +66,7 @@ export const postTagRequest = (data) => (dispatch) =>
     .catch();
 
 export const patchTagRequest = (id, data) => (dispatch) =>
-  apiRequest(`tags/tags/${id}`, {
+  apiRequest(`tags/${id}`, {
     method: 'patch',
     data: data,
   })
@@ -76,6 +76,6 @@ export const patchTagRequest = (id, data) => (dispatch) =>
     .catch();
 
 export const deleteTagRequest = (id) => (dispatch) =>
-  apiRequest(`tags/tags/${id}`, { method: 'delete' })
+  apiRequest(`tags/${id}`, { method: 'delete' })
     .then(() => dispatch(deleteTagSuccess(id)))
     .catch();
