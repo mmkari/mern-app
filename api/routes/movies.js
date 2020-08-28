@@ -172,21 +172,4 @@ router.post("/movies", function (req, res) {
     });
 });
 
-// Connecting to MongoDB
-mongoose.connect("mongodb://127.0.0.1:27017/reactproject", {
-  useNewUrlParser: true,
-});
-
-// If there is a connection error send an error message
-mongoose.connection.on("error", (error) => {
-  console.log("Database connection error:", error);
-  databaseConnection = "Error connecting to Database";
-});
-
-// If connected to MongoDB send a success message
-mongoose.connection.once("open", () => {
-  console.log("Connected to Database!!");
-  databaseConnection = "Connected to Database";
-});
-
 module.exports = router;

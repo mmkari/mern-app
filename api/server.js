@@ -16,6 +16,8 @@ var tagsRouter = require("./routes/tags");
 var reviewsRouter = require("./routes/reviews");
 
 var app = express();
+// require db connection
+require("./models");
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
