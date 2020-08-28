@@ -55,5 +55,6 @@
     "flow-bin": "^0.109.0",
     "lodash": "^4.17.15",
     "prettier-eslint": "^8.8.2"
-  }
+  },
+  "proxy": "http://localhost:5000"
 }
