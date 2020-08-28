@@ -70,7 +70,7 @@ export const patchReviewSuccess = (id, data) => {
 };
 
 export const getReviewRequest = (id) => (dispatch) =>
-  apiRequest(`reviews/reviews/${id}`)
+  apiRequest(`reviews/${id}`)
     .then((res) => {
       dispatch(getReviewSuccess(res));
       return res;
@@ -80,13 +80,13 @@ export const getReviewRequest = (id) => (dispatch) =>
 export const getReviewsAggregateAverageRatingByMovieRequest = (query) => (
   dispatch
 ) =>
-  apiRequest('reviews/reviews/aggregate/average_rating_by_movie', { query })
+  apiRequest('reviews/aggregate/average_rating_by_movie', { query })
     .then((res) => dispatch(getReviewAverageRatingsSuccess(res, query)))
     .catch();
 // .then((res) => dispatch(getReviewsSuccess(res, query)))
 
 export const getReviewsRequest = (query) => (dispatch) =>
-  apiRequest('reviews/reviews', {
+  apiRequest('reviews', {
     query: query,
   })
     .then((res) => dispatch(getReviewsSuccess(res, query)))
@@ -99,7 +99,7 @@ export const getReviewsRequest = (query) => (dispatch) =>
     .catch();
 
 export const postReviewRequest = (data) => (dispatch) =>
-  apiRequest(`reviews/reviews`, {
+  apiRequest(`reviews`, {
     method: 'post',
     data: data,
   })
@@ -109,7 +109,7 @@ export const postReviewRequest = (data) => (dispatch) =>
     .catch();
 
 export const patchReviewRequest = (id, data) => (dispatch) =>
-  apiRequest(`reviews/reviews/${id}`, {
+  apiRequest(`reviews/${id}`, {
     method: 'patch',
     data: data,
   })
@@ -119,6 +119,6 @@ export const patchReviewRequest = (id, data) => (dispatch) =>
     .catch();
 
 export const deleteReviewRequest = (id) => (dispatch) =>
-  apiRequest(`reviews/reviews/${id}`, { method: 'delete' })
+  apiRequest(`reviews/${id}`, { method: 'delete' })
     .then(() => dispatch(deleteReviewSuccess(id)))
     .catch();
