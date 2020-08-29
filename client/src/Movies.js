@@ -27,7 +27,7 @@ import {
   getFilters,
   getFilterTags,
 } from 'movieTable/selectors';
-import { getAverageRatingsByMovieId } from './selectors/reviewSelectors';
+import { getAverageRatingsByMovieId } from 'review/selectors';
 
 import useContainerDimensions from './hooks';
 

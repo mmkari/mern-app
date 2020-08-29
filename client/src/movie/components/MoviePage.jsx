@@ -16,7 +16,7 @@ import { getActiveMovie } from 'movie/selectors';
 import {
   getActiveMovieReviews,
   getAverageRatingsByMovieId,
-} from 'selectors/reviewSelectors';
+} from 'review/selectors';
 
 import StyledRatingDisplay from 'input/StyledRatingDisplay';
 import styled, { keyframes } from 'styled-components';
