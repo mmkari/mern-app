@@ -94,10 +94,6 @@ const MoviePage = (props) => {
 
   return (
     <div>
-      The aggreagates in main table need to be stored in DB as sorting requires
-      them to be available for EVERY movie -> need to use cached ratings in
-      table view that are re-calculated periodically (e.g. at 23:59, or manually
-      from admin tools)
       <h1>{activeMovie.title}</h1>
       <MoviePageContainer>
         <Container>

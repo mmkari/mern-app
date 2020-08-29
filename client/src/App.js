@@ -1,10 +1,7 @@
 import * as React from 'react';
 import './App.css';
 
-// import { connect } from 'react-redux'
-
 import { Route, Link, Switch } from 'react-router-dom';
-// import { connect } from 'react-redux'
 
 import Movies from './Movies';
 
@@ -84,19 +81,6 @@ const DefaultView = () => {
 };
 
 const App = () => {
-  // callAPI = () => {
-  //   fetch('http://localhost:9000/testAPI')
-  //     .then(res => res.text())
-  //     .then(res => this.setState({ apiResponse: res }))
-  // }
-
-  // callDB() {
-  //   fetch('http://localhost:9000/movies')
-  //     .then(res => res.text())
-  //     .then(res => this.setState({ dbResponse: res }))
-  //     .catch(err => err)
-  // }
-
   const { width, height } = useWindowDimensions();
 
   return (

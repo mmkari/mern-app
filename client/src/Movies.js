@@ -141,12 +141,6 @@ class Movies extends React.Component {
   onStarFilterChange = (option, name) => {
     const { filters } = this.props;
     const { minRating: prevMinRating, maxRating: prevMaxRating } = filters;
-    // const newState = ...
-
-    //
-    // NOTE
-    //
-    // TODO make filters change in store first, use saga to fetch new results for table!
 
     const updatedFilters = { ...filters, [name]: option };
     const { value } = option;

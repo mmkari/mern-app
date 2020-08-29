@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { AutoSizer, Table, Column, SortDirection } from 'react-virtualized';
-// import { relative } from 'path'
 import 'react-virtualized/styles.css';
 
 import { StarPicker } from 'react-star-picker';
