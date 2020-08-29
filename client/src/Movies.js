@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import styled, { keyframes } from 'styled-components';
 import MovieTable from './MovieTable';
 import AddMovieDialog from './AddMovieDialog';
-import TagSelect from './TagSelect';
-import Tag from './Tag';
-import SelectInput from './SelectInput';
+import TagSelect from './tag/components/TagSelect';
+import Tag from './tag/components/Tag';
+import SelectInput from './input/SelectInput';
 import SwitchButton from 'react-switch-input';
 
 // import { SortDirection } from 'react-virtualized';

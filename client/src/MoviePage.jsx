@@ -20,10 +20,10 @@ import {
 
 import StyledRatingDisplay from './StyledRatingDisplay';
 import styled, { keyframes } from 'styled-components';
-import TagDisplay from './TagDisplay';
+import TagDisplay from './tag/components/TagDisplay';
 
-import ReviewForm from './ReviewForm';
-import Reviews from './Reviews';
+import ReviewForm from './review/ReviewForm';
+import Reviews from './review/Reviews';
 
 import CheckIcon from '@material-ui/icons/Check';
 import ClearIcon from '@material-ui/icons/Clear';

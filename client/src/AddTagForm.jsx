@@ -1,20 +1,20 @@
-import * as React from 'react'
+import * as React from 'react';
 
-import TextInput from './TextInput'
-import NumberInput from './NumberInput'
+import TextInput from '/input/TextInput';
+import NumberInput from './NumberInput';
 
-import SwitchInput from './SwitchInput'
-import Button from './Button'
+import SwitchInput from './SwitchInput';
+import Button from './input/Button';
 
-import { StarPicker } from 'react-star-picker'
+import { StarPicker } from 'react-star-picker';
 
 // import SwitchButton from './SwitchButton';
-import SwitchButton from 'react-switch-input'
+import SwitchButton from 'react-switch-input';
 
-import Tooltip from './Tooltip'
+import Tooltip from './Tooltip';
 
 class FormParent extends React.Component {
-  state = {}
+  state = {};
 
   // use hooks for inputs
 
@@ -32,7 +32,7 @@ class FormParent extends React.Component {
   //   }
 
   render() {
-    const { onChange, values } = this.props
+    const { onChange, values } = this.props;
 
     return (
       <div className="Form">
@@ -66,8 +66,8 @@ class FormParent extends React.Component {
           halfStars
         /> */}
       </div>
-    )
+    );
   }
 }
 
-export default FormParent
+export default FormParent;

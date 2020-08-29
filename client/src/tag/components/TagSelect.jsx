@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import SelectInput from './SelectInput';
+import SelectInput from '../../input/SelectInput';
 
-import { getTagsRequest } from './actions/tagActions';
+import { getTagsRequest } from '../actions';
 
-import { getTags } from './selectors/tagSelectors';
+import { getTags } from '../selectors';
 import styled, { keyframes } from 'styled-components';
 
 const TagSelectContainer = styled.div`

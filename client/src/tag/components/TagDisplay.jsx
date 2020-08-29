@@ -4,9 +4,9 @@ import Tag from './Tag';
 import styled, { keyframes } from 'styled-components';
 import classnames from 'classnames';
 
-import { getTagsRequest } from './actions/tagActions';
+import { getTagsRequest } from '../actions';
 
-import { getTags, getTagsById } from './selectors/tagSelectors';
+import { getTags, getTagsById } from '../selectors';
 
 // reads all tags from store, props can define list of nodes to include as options
 class TagDisplay extends React.Component {

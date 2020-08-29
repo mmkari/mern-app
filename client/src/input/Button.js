@@ -1,11 +1,11 @@
-import * as React from 'react'
-import classnames from 'classnames'
+import * as React from 'react';
+import classnames from 'classnames';
 
-import styled, { keyframes } from 'styled-components'
+import styled, { keyframes } from 'styled-components';
 
-import './Button.css'
+import './Button.css';
 class Button extends React.Component {
-  render () {
+  render() {
     // use button element that allows inner html
     return (
       <button
@@ -18,7 +18,7 @@ class Button extends React.Component {
       >
         {this.props.label || this.props.children || ''}
       </button>
-    )
+    );
   }
 }
 
@@ -29,6 +29,6 @@ const StyledButton = styled(Button)`
     color: red; //#ec7063;
     // background: gray;
   }
-`
+`;
 
-export default StyledButton
+export default StyledButton;

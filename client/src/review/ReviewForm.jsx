@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { StarPicker } from 'react-star-picker';
 
-import TextInput from './TextInput';
-import Button from './Button';
+import TextInput from '../input/TextInput';
+import Button from '../input/Button';
 
 const ReviewForm = ({ onChange, values, onSubmit }) => {
   const onClick = () => {

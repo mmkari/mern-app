@@ -5,7 +5,7 @@ import {
   DELETE_TAG_SUCCESS,
   POST_TAG_SUCCESS,
   PATCH_TAG_SUCCESS,
-} from '../actions/tagActions';
+} from '../tag/actions';
 
 import produce from 'immer';
 

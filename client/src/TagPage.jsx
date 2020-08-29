@@ -1,15 +1,15 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import TextInput from './TextInput';
-import Button from './Button';
+import TextInput from './input/TextInput';
+import Button from './input/Button';
 
 import {
   postTagRequest,
   getTagsRequest,
   deleteTagRequest,
-} from './actions/tagActions';
+} from './tag/actions';
 
-import { getTags } from './selectors/tagSelectors';
+import { getTags } from './tag/selectors';
 
 import styled, { keyframes } from 'styled-components';
 
