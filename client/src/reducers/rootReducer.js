@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import movieReducers from './movieReducers';
-import movieTableReducers from './movieTableReducers';
-import tagReducers from './tagReducers';
-import reviewReducers from './reviewReducers';
+import movieReducers from 'movie/reducers';
+import movieTableReducers from 'movieTable/reducers';
+import tagReducers from 'tag/reducers';
+import reviewReducers from 'review/reducers';
 
 export default combineReducers({
   movieReducers,

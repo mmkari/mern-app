@@ -8,7 +8,7 @@ import {
   SET_ACTIVE_REVIEW,
   GET_REVIEW_AVERAGE_RATINGS_SUCCESS,
   // SET_FILTERED_IDS,
-} from '../actions/reviewActions';
+} from 'review/actions';
 
 import produce from 'immer';
 

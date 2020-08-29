@@ -10,9 +10,9 @@ import {
   getReviewsRequest,
   postReviewRequest,
   getReviewsAggregateAverageRatingByMovieRequest,
-} from 'actions/reviewActions';
+} from 'review/actions';
 
-import { getActiveMovie } from 'selectors/movieSelectors';
+import { getActiveMovie } from 'movie/selectors';
 import {
   getActiveMovieReviews,
   getAverageRatingsByMovieId,

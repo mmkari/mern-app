@@ -1,8 +1,5 @@
 /* eslint-disable no-fallthrough */
-import {
-  SET_FILTERED_RESULTS,
-  SET_FILTERS,
-} from '../actions/movieTableActions';
+import { SET_FILTERED_RESULTS, SET_FILTERS } from 'movieTable/actions';
 
 import produce from 'immer';
 

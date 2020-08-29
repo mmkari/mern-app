@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 
-import { getActiveMovieId } from './movieSelectors';
+import { getActiveMovieId } from 'movie/selectors';
 
 const getReviewsById = (state) => state.reviewReducers.reviewsById;
 

@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 
-import { getMoviesById } from './movieSelectors';
+import { getMoviesById } from 'movie/selectors';
 import { getTagsById } from 'tag';
 
 // const base = state...

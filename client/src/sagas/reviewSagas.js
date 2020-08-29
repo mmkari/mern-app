@@ -6,10 +6,10 @@ import {
   getMoviesSuccess,
 } from 'movie/actions';
 
-import { setFilteredResults, SET_FILTERS } from '../actions/movieTableActions';
+import { setFilteredResults, SET_FILTERS } from 'movieTable/actions';
 import apiRequest from '../api.js';
 
-import { getFilters } from '../selectors/movieTableSelectors';
+import { getFilters } from 'movieTable/selectors';
 
 export function* getMoviesSaga(query) {
   try {

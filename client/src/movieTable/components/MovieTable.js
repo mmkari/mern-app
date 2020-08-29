@@ -6,7 +6,7 @@ import { StarPicker } from 'react-star-picker';
 
 import { Link, withRouter } from 'react-router-dom';
 import DeleteConfirmationDialog from 'core/components/DeleteConfirmationDialog';
-import TagDisplay from './tag/components/TagDisplay';
+import TagDisplay from 'tag/components/TagDisplay';
 import RatingDisplay from 'react-verdict';
 
 const LinkCell = ({ cellData, rowData, rowIndex, history }) => {

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import styled, { keyframes } from 'styled-components';
-import MovieTable from './MovieTable';
+import MovieTable from 'movieTable/components/MovieTable';
 import AddMovieDialog from './AddMovieDialog';
 import TagSelect from './tag/components/TagSelect';
 import Tag from './tag/components/Tag';
@@ -17,16 +17,16 @@ import {
   deleteMovieRequest,
   postMovieRequest,
 } from 'movie/actions';
-import { setFilters } from './actions/movieTableActions';
+import { setFilters } from 'movieTable/actions';
 
-import { getReviewsAggregateAverageRatingByMovieRequest } from './actions/reviewActions';
+import { getReviewsAggregateAverageRatingByMovieRequest } from 'review/actions';
 
-import { getMovies } from './selectors/movieSelectors';
+import { getMovies } from 'movie/selectors';
 import {
   getMoviesFiltered,
   getFilters,
   getFilterTags,
-} from './selectors/movieTableSelectors';
+} from 'movieTable/selectors';
 import { getAverageRatingsByMovieId } from './selectors/reviewSelectors';
 
 import useContainerDimensions from './hooks';
