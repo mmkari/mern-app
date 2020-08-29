@@ -1,10 +1,10 @@
-import * as React from 'react'
-import './Dialog.css'
+import * as React from 'react';
+import 'core/components/Dialog.css';
 
-import MaterialDialog from '@material-ui/core/Dialog'
-import DialogActions from '@material-ui/core/DialogActions'
-import DialogContent from '@material-ui/core/DialogContent'
-import DialogTitle from '@material-ui/core/DialogTitle'
+import MaterialDialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 const Dialog = ({
   isOpen,
@@ -12,7 +12,7 @@ const Dialog = ({
   title,
   dialogContent,
   dialogActions,
-  preventBackdropClose
+  preventBackdropClose,
 }) => {
   return (
     <MaterialDialog
@@ -26,7 +26,7 @@ const Dialog = ({
       <DialogContent>{dialogContent}</DialogContent>
       <DialogActions>{dialogActions}</DialogActions>
     </MaterialDialog>
-  )
-}
+  );
+};
 
-export default Dialog
+export default Dialog;

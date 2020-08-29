@@ -16,7 +16,7 @@ import {
   getMoviesRequest,
   deleteMovieRequest,
   postMovieRequest,
-} from './actions/movieActions';
+} from 'movie/actions';
 import { setFilters } from './actions/movieTableActions';
 
 import { getReviewsAggregateAverageRatingByMovieRequest } from './actions/reviewActions';

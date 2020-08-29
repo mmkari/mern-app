@@ -4,7 +4,7 @@ import {
   GET_MOVIES_SUCCESS,
   getMoviesRequest,
   getMoviesSuccess,
-} from '../actions/movieActions';
+} from 'movie/actions';
 
 import { setFilteredResults, SET_FILTERS } from '../actions/movieTableActions';
 import apiRequest from '../api.js';

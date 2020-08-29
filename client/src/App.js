@@ -10,9 +10,9 @@ import AppToolbar from './AppToolbar';
 
 import { debounce } from 'lodash';
 
-import MoviePage from './MoviePage';
-import TagPage from './TagPage';
-import StatsPage from './StatsPage';
+import MoviePage from 'movie/components/MoviePage';
+import TagPage from 'tag/components/TagPage';
+import StatsPage from 'dashboard/StatsPage';
 
 const About = () => {
   return <div>Add graphs and stats here..</div>;

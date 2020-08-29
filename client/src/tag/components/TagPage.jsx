@@ -1,19 +1,15 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import TextInput from './input/TextInput';
-import Button from './input/Button';
+import TextInput from 'input/TextInput';
+import Button from 'input/Button';
 
-import {
-  postTagRequest,
-  getTagsRequest,
-  deleteTagRequest,
-} from './tag/actions';
+import { postTagRequest, getTagsRequest, deleteTagRequest } from 'tag/actions';
 
-import { getTags } from './tag/selectors';
+import { getTags } from 'tag/selectors';
 
 import styled, { keyframes } from 'styled-components';
 
-import DeleteConfirmationDialog from './DeleteConfirmationDialog';
+import DeleteConfirmationDialog from 'core/components/DeleteConfirmationDialog';
 
 import Add from '@material-ui/icons/Add';
 import Clear from '@material-ui/icons/Clear';

@@ -1,5 +1,5 @@
-import * as React from 'react'
-import ConfirmationDialog from './ConfirmationDialog'
+import * as React from 'react';
+import ConfirmationDialog from 'core/components/ConfirmationDialog';
 
 // Shows a form inside a dialog
 const FormConfirmation = ({
@@ -8,40 +8,40 @@ const FormConfirmation = ({
   title,
   contentRenderer,
   buttonContentRenderer,
-  stayOpen
+  stayOpen,
 }) => {
-  const [values, setValues] = React.useState(getInitialValues())
-  const [pristine, setPristine] = React.useState(true)
+  const [values, setValues] = React.useState(getInitialValues());
+  const [pristine, setPristine] = React.useState(true);
 
   const setValue = (name, value) => {
     if (pristine) {
-      setPristine(false)
+      setPristine(false);
     }
 
-    setValues({ ...values, [name]: value })
-  }
+    setValues({ ...values, [name]: value });
+  };
 
   const resetForm = () => {
-    setValues(getInitialValues())
-    setPristine(true)
-  }
+    setValues(getInitialValues());
+    setPristine(true);
+  };
 
   const onClose = () => {
-    resetForm()
-  }
+    resetForm();
+  };
 
   const accept = () => {
     return new Promise((resolve) => {
-      setTimeout(resolve, 2000)
+      setTimeout(resolve, 2000);
     })
       .then(() => onAccept(values))
       .then(() => {
-        resetForm()
+        resetForm();
       })
-      .catch(() => {})
-  }
+      .catch(() => {});
+  };
 
-  const content = contentRenderer({ setValue, values })
+  const content = contentRenderer({ setValue, values });
 
   return (
     <div>
@@ -55,7 +55,7 @@ const FormConfirmation = ({
         stayOpen={stayOpen}
       />
     </div>
-  )
-}
+  );
+};
 
-export default FormConfirmation
+export default FormConfirmation;

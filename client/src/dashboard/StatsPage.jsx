@@ -5,8 +5,8 @@ import {
   setActiveMovie,
   getMovieRequest,
   getMoviesAggregateRatingGroupsRequest,
-} from './actions/movieActions';
-import { getActiveMovie } from './selectors/movieSelectors';
+} from 'movie/actions';
+import { getActiveMovie } from 'selectors/movieSelectors';
 
 import styled, { keyframes } from 'styled-components';
 

@@ -7,7 +7,7 @@ import {
   PATCH_MOVIE_SUCCESS,
   SET_ACTIVE_MOVIE,
   // SET_FILTERED_IDS,
-} from '../actions/movieActions';
+} from 'movie/actions';
 
 import produce from 'immer';
 

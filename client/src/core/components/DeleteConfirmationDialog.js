@@ -1,19 +1,19 @@
-import * as React from 'react'
-import ConfirmationDialog from './ConfirmationDialog'
+import * as React from 'react';
+import ConfirmationDialog from 'core/components/ConfirmationDialog';
 
-import Delete from '@material-ui/icons/Delete'
+import Delete from '@material-ui/icons/Delete';
 
-const buttonContentRenderer = () => <Delete />
+const buttonContentRenderer = () => <Delete />;
 
 const DeleteConfirmationButton = ({ onAccept }) => {
-  const [error, setError] = React.useState(false)
+  const [error, setError] = React.useState(false);
 
   const accept = () => {
-    setError(false)
+    setError(false);
     if (onAccept) {
-      onAccept()
+      onAccept();
     }
-  }
+  };
 
   return (
     <div>
@@ -29,7 +29,7 @@ const DeleteConfirmationButton = ({ onAccept }) => {
         buttonContentRenderer={buttonContentRenderer}
       />
     </div>
-  )
-}
+  );
+};
 
-export default DeleteConfirmationButton
+export default DeleteConfirmationButton;

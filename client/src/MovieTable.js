@@ -5,7 +5,7 @@ import 'react-virtualized/styles.css';
 import { StarPicker } from 'react-star-picker';
 
 import { Link, withRouter } from 'react-router-dom';
-import DeleteConfirmationDialog from './DeleteConfirmationDialog';
+import DeleteConfirmationDialog from 'core/components/DeleteConfirmationDialog';
 import TagDisplay from './tag/components/TagDisplay';
 import RatingDisplay from 'react-verdict';
 

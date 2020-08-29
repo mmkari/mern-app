@@ -1,6 +1,6 @@
 import * as React from 'react';
-import Dialog from './Dialog';
-import Button from './input/Button';
+import Dialog from 'core/components/Dialog';
+import Button from 'input/Button';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Snackbar from '@material-ui/core/Snackbar';

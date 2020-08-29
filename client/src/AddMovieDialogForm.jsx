@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import TextInput from './input/TextInput';
 
-import SwitchInput from './SwitchInput';
+import SwitchInput from 'input/SwitchInput';
 import Button from './input/Button';
 import TagSelect from './tag/components/TagSelect';
 

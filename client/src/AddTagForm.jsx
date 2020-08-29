@@ -3,7 +3,7 @@ import * as React from 'react';
 import TextInput from '/input/TextInput';
 import NumberInput from './NumberInput';
 
-import SwitchInput from './SwitchInput';
+import SwitchInput from 'input/SwitchInput';
 import Button from './input/Button';
 
 import { StarPicker } from 'react-star-picker';

@@ -5,25 +5,25 @@ import {
   setActiveMovie,
   getMovieRequest,
   patchMovieRequest,
-} from './actions/movieActions';
+} from 'movie/actions';
 import {
   getReviewsRequest,
   postReviewRequest,
   getReviewsAggregateAverageRatingByMovieRequest,
-} from './actions/reviewActions';
+} from 'actions/reviewActions';
 
-import { getActiveMovie } from './selectors/movieSelectors';
+import { getActiveMovie } from 'selectors/movieSelectors';
 import {
   getActiveMovieReviews,
   getAverageRatingsByMovieId,
-} from './selectors/reviewSelectors';
+} from 'selectors/reviewSelectors';
 
-import StyledRatingDisplay from './StyledRatingDisplay';
+import StyledRatingDisplay from 'input/StyledRatingDisplay';
 import styled, { keyframes } from 'styled-components';
-import TagDisplay from './tag/components/TagDisplay';
+import TagDisplay from 'tag/components/TagDisplay';
 
-import ReviewForm from './review/ReviewForm';
-import Reviews from './review/Reviews';
+import ReviewForm from 'review/components/ReviewForm';
+import Reviews from 'review/components/Reviews';
 
 import CheckIcon from '@material-ui/icons/Check';
 import ClearIcon from '@material-ui/icons/Clear';
