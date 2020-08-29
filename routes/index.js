@@ -13,8 +13,8 @@ router.use("/api/movies", moviesRouter);
 router.use("/api/tags", tagsRouter);
 router.use("/api/reviews", reviewsRouter);
 
-// serve client
-router.get("/", function (req, res, next) {
+// serve client for all other routes
+router.use(function (req, res, next) {
   res.sendFile(path.join(__dirname, "../client/build/index.html"));
   // res.render("index", { title: "Express" });
 });
