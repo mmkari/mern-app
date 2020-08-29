@@ -1,6 +1,6 @@
 // api request function
 import { stringifyUrl } from 'query-string';
-const apiUrlRoot = 'http://localhost:9000/api';
+const apiUrlRoot = '/api';
 
 const apiRequest = (path, params = {}) => {
   const { method, data, query } = params;
