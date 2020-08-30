@@ -7,7 +7,7 @@ import {
 } from 'movie/actions';
 
 import { setFilteredResults, SET_FILTERS } from 'movieTable/actions';
-import apiRequest from '../api.js';
+import apiRequest from 'core/api';
 
 import { getFilters } from 'movieTable/selectors';
 

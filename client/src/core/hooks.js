@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { debounce } from 'lodash';
 
 const getBoundingClientRect = (element) => {
   const {
@@ -110,4 +111,31 @@ const useContainerDimensions = () => {
 //   return statusDown ? position : null;
 // };
 
+const getWindowDimensions = () => {
+  const { innerWidth: width, innerHeight: height } = window;
+  return { width, height };
+};
+
+const useWindowDimensions = (debounceMs = 0) => {
+  // dims in state
+  const [dimensions, setDimensions] = React.useState(getWindowDimensions());
+
+  // debounce
+  const handleResize = () => {
+    setDimensions(getWindowDimensions());
+  };
+  const debouncedHandleResize = debounce(handleResize, debounceMs);
+
+  // effect to update via listener
+  React.useEffect(() => {
+    window.addEventListener('resize', debouncedHandleResize);
+
+    return () => window.removeEventListener('resize', debouncedHandleResize); // cleanup
+  }, []);
+
+  // return values
+  return dimensions;
+};
+
 export default useContainerDimensions;
+export { useWindowDimensions };

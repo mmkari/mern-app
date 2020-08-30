@@ -1,17 +1,17 @@
 import * as React from 'react';
 
 import TextInput from '/input/TextInput';
-import NumberInput from './NumberInput';
+// import NumberInput from './NumberInput';
 
-import SwitchInput from 'input/SwitchInput';
-import Button from './input/Button';
+// import SwitchInput from 'input/SwitchInput';
+// import Button from './input/Button';
 
 import { StarPicker } from 'react-star-picker';
 
 // import SwitchButton from './SwitchButton';
 import SwitchButton from 'react-switch-input';
 
-import Tooltip from 'core/components/Tooltip';
+// import Tooltip from 'core/components/Tooltip';
 
 class FormParent extends React.Component {
   state = {};

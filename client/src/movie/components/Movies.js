@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import MovieTable from 'movieTable/components/MovieTable';
-import AddMovieDialog from './AddMovieDialog';
-import TagSelect from './tag/components/TagSelect';
-import Tag from './tag/components/Tag';
-import SelectInput from './input/SelectInput';
+import AddMovieDialog from 'movie/components/AddMovieDialog';
+import TagSelect from 'tag/components/TagSelect';
+import Tag from 'tag/components/Tag';
+import SelectInput from 'input/SelectInput';
 import SwitchButton from 'react-switch-input';
 
 // import { SortDirection } from 'react-virtualized';
@@ -21,7 +21,7 @@ import { setFilters } from 'movieTable/actions';
 
 import { getReviewsAggregateAverageRatingByMovieRequest } from 'review/actions';
 
-import { getMovies } from 'movie/selectors';
+// import { getMovies } from 'movie/selectors';
 import {
   getMoviesFiltered,
   getFilters,
@@ -29,7 +29,7 @@ import {
 } from 'movieTable/selectors';
 import { getAverageRatingsByMovieId } from 'review/selectors';
 
-import useContainerDimensions from './hooks';
+import useContainerDimensions from 'core/hooks';
 
 const TableHeading = styled.div`
   display: flex;
@@ -111,7 +111,7 @@ const ratingFilterOptions = [
 ];
 
 class Movies extends React.Component {
-  componentWillMount() {
+  componentDidMount() {
     this.getMovies();
     // TODO get average reviews in saga
     this.props.getAverageRatingsByMovie();
@@ -133,7 +133,7 @@ class Movies extends React.Component {
   addTagFilter = (option) => {
     const { filters } = this.props;
 
-    //TODO support tag array
+    // TODO support tag array
     const updatedFilters = { ...filters, filterTag: option };
     this.props.setFilters(updatedFilters);
   };
@@ -220,7 +220,7 @@ class Movies extends React.Component {
             <ActiveTableFilters>
               <FilterContainer>
                 {filterTags.map((tag) => (
-                  <TagWithRemove>
+                  <TagWithRemove key={`item-${tag.id}`}>
                     <Tag
                       value={tag.name}
                       onRemoveClick={this.removeTagFilter}

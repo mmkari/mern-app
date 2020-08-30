@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-import TextInput from './input/TextInput';
+import TextInput from 'input/TextInput';
 
 // import SwitchInput from 'input/SwitchInput';
 // import Button from './input/Button';
-import TagSelect from './tag/components/TagSelect';
+import TagSelect from 'tag/components/TagSelect';
 
 import SwitchButton from 'react-switch-input';
 

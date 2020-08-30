@@ -1,4 +1,4 @@
-import apiRequest from '../api.js';
+import apiRequest from 'core/api';
 
 export const GET_REVIEWS_SUCCESS = 'actions/GET_REVIEWS_SUCCESS';
 export const DELETE_REVIEW_SUCCESS = 'actions/DELETE_REVIEW_SUCCESS';

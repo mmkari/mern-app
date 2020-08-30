@@ -1,4 +1,4 @@
-import apiRequest from '../api.js';
+import apiRequest from 'core/api';
 
 export const GET_MOVIES_SUCCESS = 'actions/GET_MOVIES_SUCCESS';
 export const DELETE_MOVIE_SUCCESS = 'actions/DELETE_MOVIE_SUCCESS';

@@ -1,4 +1,4 @@
-import apiRequest from '../api.js';
+import apiRequest from 'core/api';
 
 export const GET_TAGS_SUCCESS = 'actions/GET_TAGS_SUCCESS';
 export const DELETE_TAG_SUCCESS = 'actions/DELETE_TAG_SUCCESS';
