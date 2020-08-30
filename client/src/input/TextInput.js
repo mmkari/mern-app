@@ -1,22 +1,24 @@
-import * as React from 'react'
+import * as React from 'react';
 
 class TextInput extends React.Component {
   onChange = (event) => {
-    const { onChange } = this.props
+    const { onChange } = this.props;
     if (onChange) {
-      onChange(event.target.value)
+      onChange(event.target.value);
     }
-  }
+  };
 
   render() {
+    const { label, value, error } = this.props;
+
     return (
       <div>
-        {this.props.label && <label>{this.props.label}</label>}
-        <input type="text" value={this.props.value} onChange={this.onChange} />
-        {this.props.error && <label>{this.props.error}</label>}
+        {label && <label>{label}</label>}
+        <input type="text" value={value} onChange={this.onChange} />
+        {error && <label>{error}</label>}
       </div>
-    )
+    );
   }
 }
 
-export default TextInput
+export default TextInput;

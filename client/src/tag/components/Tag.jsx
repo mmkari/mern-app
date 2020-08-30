@@ -1,5 +1,5 @@
 import * as React from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import classnames from 'classnames';
 import ClearIcon from '@material-ui/icons/Clear';
 

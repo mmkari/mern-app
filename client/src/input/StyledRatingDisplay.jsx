@@ -1,6 +1,6 @@
-import * as React from 'react'
-import styled, { keyframes } from 'styled-components'
-import RatingDisplay from 'react-verdict'
+import * as React from 'react';
+import styled, { keyframes } from 'styled-components';
+import RatingDisplay from 'react-verdict';
 
 const CustomStarRendererStar = ({ color, className, index, type }) => {
   return (
@@ -18,8 +18,8 @@ const CustomStarRendererStar = ({ color, className, index, type }) => {
         />
       </svg>
     </div>
-  )
-}
+  );
+};
 
 const fadeIn = keyframes`
   0% {
@@ -28,7 +28,7 @@ const fadeIn = keyframes`
   100% {
     opacity: 100%;
   }
-`
+`;
 const colorFill = keyframes`
   0% {
     width: 0;
@@ -38,16 +38,16 @@ const colorFill = keyframes`
     width: 100%;
     // opacity: 100%;
   }
-`
+`;
 
 // color fill animation length
-const animationLength = 1.5 // s
+const animationLength = 1.5; // s
 
 const StyledDisplay = styled(RatingDisplay)`
   .RatingDisplayStar-colored {
     left: 0;
   }
-`
+`;
 
 const StyledCustomStarRendererStar = styled(CustomStarRendererStar)`
   transition: width 1s;
@@ -60,21 +60,21 @@ const StyledCustomStarRendererStar = styled(CustomStarRendererStar)`
     overflow: hidden;
     animation: ${colorFill}
       ${({ index, value }) =>
-    Math.min(value - index, 1) * (animationLength / value)}s;
+        Math.min(value - index, 1) * (animationLength / value)}s;
     animation-timing-function: ${({ index, value }) =>
-    value - index < 1 ? 'cubic-bezier(0,0,0,1)' : 'linear'};
+      value - index < 1 ? 'cubic-bezier(0,0,0,1)' : 'linear'};
     animation-fill-mode: forwards;
     animation-delay: ${({ index, value }) =>
-    index * (animationLength / value)}s;
+      index * (animationLength / value)}s;
 
     .RatingDisplayStar-partial {
       left: 0;
     }
   }
-`
+`;
 const customStarRenderer = (props) => (
   <StyledCustomStarRendererStar {...props} className={props.type} />
-)
+);
 
 const StyledRatingDisplay = ({ value, showRatingOnHover }) => (
   <StyledDisplay
@@ -82,6 +82,6 @@ const StyledRatingDisplay = ({ value, showRatingOnHover }) => (
     showRatingOnHover={showRatingOnHover}
     starRenderer={customStarRenderer}
   />
-)
+);
 
-export default StyledRatingDisplay
+export default StyledRatingDisplay;

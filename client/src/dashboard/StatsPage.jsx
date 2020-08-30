@@ -8,18 +8,18 @@ import {
 } from 'movie/actions';
 import { getActiveMovie } from 'movie/selectors';
 
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 
 // CHART
 // import React, { PureComponent } from 'react';
 import {
   BarChart,
   Bar,
-  Cell,
+  // Cell,
   XAxis,
   YAxis,
   CartesianGrid,
-  Tooltip,
+  // Tooltip,
   Legend,
 } from 'recharts';
 //

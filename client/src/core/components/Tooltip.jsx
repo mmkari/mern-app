@@ -1,6 +1,6 @@
-import * as React from 'react'
-import styled from 'styled-components'
-import classnames from 'classnames'
+import * as React from 'react';
+import styled from 'styled-components';
+import classnames from 'classnames';
 
 const Tooltip = ({ content, tooltip, show, className }) => {
   //
@@ -10,7 +10,7 @@ const Tooltip = ({ content, tooltip, show, className }) => {
       <div className={classnames('Tooltip-content', className)}>{content}</div>
       {show && <div className="Tooltip-tip">{tooltip}</div>}
     </div>
-  )
+  );
 };
 
 const StyledTooltip = styled(Tooltip)`
@@ -18,6 +18,6 @@ const StyledTooltip = styled(Tooltip)`
     background: black;
     color: white;
   }
-`
+`;
 
-export default StyledTooltip
+export default StyledTooltip;

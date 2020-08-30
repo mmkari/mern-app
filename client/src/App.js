@@ -1,7 +1,7 @@
 import * as React from 'react';
 import './App.css';
 
-import { Route, Link, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 import Movies from './Movies';
 
@@ -13,10 +13,6 @@ import { debounce } from 'lodash';
 import MoviePage from 'movie/components/MoviePage';
 import TagPage from 'tag/components/TagPage';
 import StatsPage from 'dashboard/StatsPage';
-
-const About = () => {
-  return <div>Add graphs and stats here..</div>;
-};
 
 // HOOKS
 const getWindowDimensions = () => {
@@ -48,11 +44,11 @@ const useWindowDimensions = (debounceMs = 0) => {
 //
 
 const headerHeight = 50;
-const footerHeight = 30;
+// const footerHeight = 30;
 const fixDoubleScroll = 5;
 
 const App = () => {
-  const { width, height } = useWindowDimensions();
+  const { height } = useWindowDimensions();
 
   return (
     <div className="App">

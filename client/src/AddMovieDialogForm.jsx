@@ -2,14 +2,13 @@ import * as React from 'react';
 
 import TextInput from './input/TextInput';
 
-import SwitchInput from 'input/SwitchInput';
-import Button from './input/Button';
+// import SwitchInput from 'input/SwitchInput';
+// import Button from './input/Button';
 import TagSelect from './tag/components/TagSelect';
 
-// import SwitchButton from './SwitchButton';
 import SwitchButton from 'react-switch-input';
 
-import Tooltip from 'core/components/Tooltip';
+// import Tooltip from 'core/components/Tooltip';
 
 const AddMovieDialogForm = (props) => {
   const { onChange, values } = props;

@@ -1,19 +1,19 @@
-import * as React from 'react'
-import Switch from '@material-ui/core/Switch'
+import * as React from 'react';
+import Switch from '@material-ui/core/Switch';
 
-const SwitchInput = props => {
+const SwitchInput = ({ label, value, checked, onChange }) => {
   return (
     <div>
-      {props.label && <label>{props.label}</label>}
+      {label && <label>{label}</label>}
       <Switch
-        value={props.value}
-        checked={props.checked}
-        onChange={event => {
-          props.onChange(props.value, event.target.checked)
+        value={value}
+        checked={checked}
+        onChange={(event) => {
+          onChange(value, event.target.checked);
         }}
       />
     </div>
-  )
-}
+  );
+};
 
-export default SwitchInput
+export default SwitchInput;

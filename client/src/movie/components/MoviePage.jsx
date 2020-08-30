@@ -19,7 +19,7 @@ import {
 } from 'review/selectors';
 
 import StyledRatingDisplay from 'input/StyledRatingDisplay';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import TagDisplay from 'tag/components/TagDisplay';
 
 import ReviewForm from 'review/components/ReviewForm';
@@ -62,7 +62,7 @@ const MoviePage = (props) => {
     });
   }, []); //
   const {
-    name,
+    // name,
     activeMovie,
     activeMovieReviews,
     averageRatingsByMovieId,

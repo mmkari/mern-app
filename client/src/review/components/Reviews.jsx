@@ -1,5 +1,5 @@
 import * as React from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import RatingDisplay from 'react-verdict';
 
 const ReviewList = styled.ul`

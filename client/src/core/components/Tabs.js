@@ -1,14 +1,14 @@
-import * as React from 'react'
+import * as React from 'react';
 
-import Tabs from '@material-ui/core/Tabs'
-import Tab from '@material-ui/core/Tab'
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 
 const SimpleTabs = () => {
   //   const classes = useStyles()
-  const [value, setValue] = React.useState(0)
+  const [value, setValue] = React.useState(0);
 
-  function handleChange (event, newValue) {
-    setValue(newValue)
+  function handleChange(event, newValue) {
+    setValue(newValue);
   }
 
   return (
@@ -24,7 +24,7 @@ const SimpleTabs = () => {
       {value === 1 && <div>Item Two</div>}
       {value === 2 && <div>Item Three</div>}
     </div>
-  )
-}
+  );
+};
 
-export default SimpleTabs
+export default SimpleTabs;

@@ -7,14 +7,14 @@ import { postTagRequest, getTagsRequest, deleteTagRequest } from 'tag/actions';
 
 import { getTags } from 'tag/selectors';
 
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 
 import DeleteConfirmationDialog from 'core/components/DeleteConfirmationDialog';
 
 import Add from '@material-ui/icons/Add';
 import Clear from '@material-ui/icons/Clear';
 import Done from '@material-ui/icons/Done';
-import Edit from '@material-ui/icons/Edit';
+// import Edit from '@material-ui/icons/Edit';
 
 const TagForm = ({ values, onChange }) => {
   return (
