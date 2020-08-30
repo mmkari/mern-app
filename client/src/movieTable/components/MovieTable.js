@@ -2,7 +2,7 @@ import * as React from 'react';
 import { AutoSizer, Table, Column, SortDirection } from 'react-virtualized';
 import 'react-virtualized/styles.css';
 
-import { StarPicker } from 'react-star-picker';
+// import { StarPicker } from 'react-star-picker';
 
 import { Link, withRouter } from 'react-router-dom';
 import DeleteConfirmationDialog from 'core/components/DeleteConfirmationDialog';

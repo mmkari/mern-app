@@ -17,7 +17,7 @@
     "react-router-dom": "^5.0.1",
     "react-scripts": "2.1.8",
     "react-select": "^3.1.0",
-    "react-star-picker": "^1.0.0",
+    "react-star-picker": "^2.0.0",
     "react-switch-input": "git+https://github.com/mmkari/react-switch-input.git",
     "react-transition-group": "^4.3.0",
     "react-verdict": "^2.0.0",
