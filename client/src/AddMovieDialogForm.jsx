@@ -9,7 +9,7 @@ import TagSelect from './tag/components/TagSelect';
 // import SwitchButton from './SwitchButton';
 import SwitchButton from 'react-switch-input';
 
-import Tooltip from './Tooltip';
+import Tooltip from 'core/components/Tooltip';
 
 const AddMovieDialogForm = (props) => {
   const { onChange, values } = props;

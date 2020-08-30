@@ -5,8 +5,8 @@ import { Route, Link, Switch } from 'react-router-dom';
 
 import Movies from './Movies';
 
-import AppHeader from './AppHeader';
-import AppToolbar from './AppToolbar';
+import AppHeader from 'layout/AppHeader';
+import AppToolbar from 'layout/AppToolbar';
 
 import { debounce } from 'lodash';
 
@@ -51,35 +51,6 @@ const headerHeight = 50;
 const footerHeight = 30;
 const fixDoubleScroll = 5;
 
-const DefaultView = () => {
-  return (
-    <div>
-      <div style={{ background: 'pink', opacity: 0.5 }}>
-        <div>
-          <Switch>
-            <Route
-              exact
-              path="/g/:id"
-              render={(props) => (
-                <MoviePage name={props.match.params.id} {...props} />
-              )}
-            />
-            <Route path="/about" component={About} />
-            <Route
-              path="/test/:id"
-              render={(props) => (
-                <MoviePage name={props.match.params.id} {...props} />
-              )}
-            />
-          </Switch>
-        </div>
-      </div>
-
-      <Movies />
-    </div>
-  );
-};
-
 const App = () => {
   const { width, height } = useWindowDimensions();
 
@@ -101,7 +72,7 @@ const App = () => {
           style={{ height: height - headerHeight - fixDoubleScroll }}
         >
           <Switch>
-            <Route exact path="/" component={DefaultView} />
+            <Route exact path="/" component={Movies} />
             <Route path="/item/:id" component={MoviePage} />
             <Route path="/stats" component={StatsPage} />
             <Route exact path="/info" component={TagPage} />

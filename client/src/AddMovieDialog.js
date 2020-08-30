@@ -1,6 +1,6 @@
 import * as React from 'react';
 import AddMovieDialogForm from './AddMovieDialogForm';
-import FormConfirmation from './FormConfirmation';
+import FormConfirmation from 'core/components/FormConfirmation';
 
 import Add from '@material-ui/icons/Add';
 

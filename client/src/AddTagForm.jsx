@@ -11,7 +11,7 @@ import { StarPicker } from 'react-star-picker';
 // import SwitchButton from './SwitchButton';
 import SwitchButton from 'react-switch-input';
 
-import Tooltip from './Tooltip';
+import Tooltip from 'core/components/Tooltip';
 
 class FormParent extends React.Component {
   state = {};
