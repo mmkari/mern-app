@@ -8,6 +8,7 @@
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
   },
+  "parser": "babel-eslint",
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
@@ -18,6 +19,8 @@
   "plugins": ["react"],
   "rules": {
     "react/jsx-uses-vars": 2,
-    "semi": [2, "always"]
+    "semi": [2, "always"],
+    "comma-dangle": ["error", "only-multiline"],
+    "space-before-function-paren": ["error", "never"]
   }
 }
