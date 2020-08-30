@@ -205,7 +205,7 @@ const TagPage = (props) => {
 
   const { tags } = props;
 
-  const expand = (id) => {};
+  // const expand = (id) => {};
 
   if (tags) {
   }
@@ -222,6 +222,7 @@ const TagPage = (props) => {
         <TagList>
           {tags.map((tag) => (
             <TagItem
+              key={`tag-${tag.id}`}
               tag={tag}
               deleteTag={deleteFun}
               addTag={props.postTagRequest}

@@ -5,10 +5,10 @@ import SelectInput from '../../input/SelectInput';
 import { getTagsRequest } from '../actions';
 
 import { getTags } from '../selectors';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 
 const TagSelectContainer = styled.div`
-  width: ${({ width }) => (width ? width : 100)}px;
+  width: ${({ width }) => width || 100}px;
 `;
 
 // reads all tags from store, props can define list of nodes to include as options

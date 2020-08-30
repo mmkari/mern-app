@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import Tag from './Tag';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import classnames from 'classnames';
 
-import { getTagsRequest } from '../actions';
+import { getTagsRequest } from 'tag/actions';
 
-import { getTags, getTagsById } from '../selectors';
+import { getTags, getTagsById } from 'tag/selectors';
 
 // reads all tags from store, props can define list of nodes to include as options
 class TagDisplay extends React.Component {
