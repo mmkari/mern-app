@@ -20,7 +20,7 @@
     "react-star-picker": "^1.0.0",
     "react-switch-input": "git+https://github.com/mmkari/react-switch-input.git",
     "react-transition-group": "^4.3.0",
-    "react-verdict": "^1.0.1",
+    "react-verdict": "^2.0.0",
     "react-virtualized": "^9.21.0",
     "recharts": "^1.8.5",
     "redux": "^4.0.1",
