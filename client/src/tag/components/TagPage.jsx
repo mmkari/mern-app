@@ -2,12 +2,13 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import TextInput from 'input/TextInput';
 import Button from 'input/Button';
+import classnames from 'classnames';
 
 import { postTagRequest, getTagsRequest, deleteTagRequest } from 'tag/actions';
 
 import { getTags } from 'tag/selectors';
 
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import DeleteConfirmationDialog from 'core/components/DeleteConfirmationDialog';
 
@@ -17,20 +18,30 @@ import Done from '@material-ui/icons/Done';
 import SubdirectoryArrowRightIcon from '@material-ui/icons/SubdirectoryArrowRight';
 // import Edit from '@material-ui/icons/Edit';
 
+const InputContainer = styled.div`
+  display: flex;
+  label {
+    width: 50%;
+  }
+`;
 const TagForm = ({ values, onChange, className }) => {
   return (
     <div className={className}>
-      <TextInput
-        value={values ? values.name : ''}
-        label="Name: "
-        onChange={(val) => onChange('name', val)}
-      />
+      <InputContainer>
+        <label>Name:</label>
+        <TextInput
+          value={values ? values.name : ''}
+          onChange={(val) => onChange('name', val)}
+        />
+      </InputContainer>
 
-      <TextInput
-        value={values ? values.value : ''}
-        label="Value: "
-        onChange={(val) => onChange('value', val)}
-      />
+      <InputContainer>
+        <label>Value:</label>
+        <TextInput
+          value={values ? values.value : ''}
+          onChange={(val) => onChange('value', val)}
+        />
+      </InputContainer>
     </div>
   );
 };
@@ -52,52 +63,41 @@ const MainContainer = styled.div`
   align-items: center;
   border: 1px solid gray;
 
-  // h2 {
-  //   margin-right: 50%;
-  // }
+  margin-top: 1em;
+`;
+
+const commonConnectorStyles = css`
+  z-index: -1;
+  position: absolute;
+  content: ' ';
 `;
 
 const borderWidth = '1.5px';
 const offsetLeft = '-30px';
 const TagItemContainer = styled.li`
   list-style: none;
-
-  // height: 70px;
-  // display: flex;
-  // align-items: center;
-  // justify-content: space-around;
-
-
   position: relative;
 
   &::after {
-    z-index: -1;
-    position: absolute;
+    ${commonConnectorStyles}
+
     height: 60px;
-    width: 20px;
+    width: 30px;
     border-left: ${borderWidth} solid black;
     border-bottom: ${borderWidth} solid black;
-    content: ' ';
-    left: ${offsetLeft};
-    top: -24px;
-  }
-
-  &:not(:last-of-type)::before {
-        z-index: -1;
-    position: absolute;
-    height: 100%;
-    width: 20px;
-    border-left: ${borderWidth} solid black;
-    // border-bottom: ${borderWidth} solid black;
-    content: ' ';
     left: ${offsetLeft};
     top: -24px;
   }
 `;
 
-const NameValueContainer = styled.div`
+const NameValueBlocks = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+const NameValueContainer = styled.div`
+  display: flex;
+  // flex-direction: column;
   h4 {
     margin: 0;
   }
@@ -107,44 +107,65 @@ const NameValueContainer = styled.div`
 `;
 const formOffsetLeft = '18px';
 const FormContainerContent = styled.div`
-  border: 1px dashed red;
+  background: white;
+  border: 1px dashed lightgray;
   display: flex;
+
+  &:hover,
+  &.expanded {
+    border: 1px dashed red;
+  }
+  transition: border-color 0.2s;
+`;
+
+const connectorPaddingLeft = '48px';
+const connectorStyles = css`
+  &::after {
+    ${commonConnectorStyles}
+
+    height: 72px;
+    width: 30px;
+    border-left: ${borderWidth} solid orange;
+    border-bottom: ${borderWidth} solid orange;
+    left: ${formOffsetLeft};
+    bottom: 25px;
+  }
+`;
+const connectorStylesChildren = css`
+  &::after {
+    ${commonConnectorStyles}
+
+    height: 100%;
+    width: 30px;
+    border-left: ${borderWidth} solid lightgreen;
+    // border-bottom: ${borderWidth} solid orange;
+    left: ${formOffsetLeft};
+    bottom: 25px;
+  }
+
 `;
 
 const FormContainer = styled.div`
-
-  padding-left: 40px;
+  padding-left: ${connectorPaddingLeft};
+  padding-bottom: 1em;
   // flex-direction: column;
   // background: lightblue;
 
-  &::after {
-    z-index:-1;
-    position: absolute;
-    height: 50%;
-    width: 20px;
-    border-left: ${borderWidth} solid orange;
-    border-bottom: ${borderWidth} solid orange;
-    content: ' ';
-    left: ${formOffsetLeft};
-    bottom: 10px;
-  }
-
-  &:not(:last-of-type)::before {
-    z-index:-1;
-
-    position: absolute;
-    height: 50%;
-    width: 20px;
-    border-left: ${borderWidth} solid orange;
-    // border-bottom: ${borderWidth} solid orange;
-    content: ' ';
-    left: ${formOffsetLeft};
-    bottom: 10px;
-  }
+  ${connectorStyles};
 `;
 const ButtonsContainer = styled.div`
-  // display: flex;
+  display: flex;
+  align-items: center;
   // background: green;
+  &.grow {
+    flex-grow: 1;
+  }
+
+  .grow {
+    display: block;
+    width: 100%;
+    // flex-grow: 1;
+  }
 `;
 
 const TagItem = ({ tag, deleteTag, addTag, className }) => {
@@ -186,14 +207,16 @@ const TagItem = ({ tag, deleteTag, addTag, className }) => {
     <TagItemContainer className={className}>
       {tag && (
         <MainContainer className="MainContainer">
-          <NameValueContainer>
-            <h4>Name:</h4>
-            <div>{tag.name}</div>
-          </NameValueContainer>
-          <NameValueContainer>
-            <h4>Value:</h4>
-            <div>{tag.value}</div>
-          </NameValueContainer>
+          <NameValueBlocks>
+            <NameValueContainer>
+              <h4>Name:</h4>
+              <div>{tag.name}</div>
+            </NameValueContainer>
+            <NameValueContainer>
+              <h4>Value:</h4>
+              <div>{tag.value}</div>
+            </NameValueContainer>
+          </NameValueBlocks>
           <DeleteConfirmationDialog
             onAccept={() => {
               deleteTag(tag.id);
@@ -211,11 +234,15 @@ const TagItem = ({ tag, deleteTag, addTag, className }) => {
       )}
       {/* show buttons and add form */}
       <FormContainer className="FormContainer">
-        <FormContainerContent className="FormContainerContent">
-          <ButtonsContainer className="ButtonsContainer">
+        <FormContainerContent
+          className={classnames('FormContainerContent', { expanded })}
+        >
+          <ButtonsContainer
+            className={classnames('ButtonsContainer', { grow: !expanded })}
+          >
             {!expanded && (
-              <Button onClick={expand} type="minimal">
-                <SubdirectoryArrowRightIcon />
+              <Button className="grow" onClick={expand} type="minimal">
+                {/* <SubdirectoryArrowRightIcon /> */}
                 <Add />
               </Button>
             )}
@@ -227,11 +254,10 @@ const TagItem = ({ tag, deleteTag, addTag, className }) => {
                 <Button onClick={accept} type="minimal">
                   <Done />
                 </Button>
+                <StyledTagForm values={values} onChange={setValue} />
               </>
             )}
           </ButtonsContainer>
-
-          {expanded && <StyledTagForm values={values} onChange={setValue} />}
         </FormContainerContent>
       </FormContainer>
     </TagItemContainer>
@@ -241,21 +267,32 @@ const TagItem = ({ tag, deleteTag, addTag, className }) => {
 const ChildrenContainer = styled.div`
   // border: 1px solid black;
   padding-left: 3em;
+
+  ${connectorStylesChildren};
+`;
+
+const connectorStylesLeft = css`
+  &::after {
+    ${commonConnectorStyles}
+
+    height: 100%;
+    width: 20px;
+    border-left: ${borderWidth} solid blue;
+    // border-bottom: ${borderWidth} solid blue;
+    left: ${formOffsetLeft};
+    // bottom: 10px;
+    top: 0;
+  }
+
 `;
 
 const TagList = styled.ul`
+  padding-left: ${connectorPaddingLeft};
+
   position: relative;
   list-style: none;
-  // &::after {
-  //   // border: 3px solid blue;
-  //   position: absolute;
-  //   top: -3px;
-  //   background: green;
-  //   width: 3px;
-  //   height: 100%;
-  //   content: ' ';
-  //   left: 10px;
-  // }
+
+  ${connectorStylesLeft};
 `;
 
 const DashedButton = styled(Button)`
@@ -303,7 +340,7 @@ const TagPage = (props) => {
       )}
       <TagItem
         className="RootTagItem"
-        style={{ paddingLeft: '40px' }}
+        style={{ paddingLeft: connectorPaddingLeft }}
         tag={null}
         deleteTag={null}
         addTag={props.postTagRequest}
