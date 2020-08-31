@@ -4,7 +4,12 @@ import TextInput from 'input/TextInput';
 import Button from 'input/Button';
 import classnames from 'classnames';
 
-import { postTagRequest, getTagsRequest, deleteTagRequest } from 'tag/actions';
+import {
+  postTagRequest,
+  getTagsRequest,
+  deleteTagRequest,
+  patchTagRequest,
+} from 'tag/actions';
 
 import { getTags } from 'tag/selectors';
 
@@ -16,7 +21,7 @@ import Add from '@material-ui/icons/Add';
 import Clear from '@material-ui/icons/Clear';
 import Done from '@material-ui/icons/Done';
 import SubdirectoryArrowRightIcon from '@material-ui/icons/SubdirectoryArrowRight';
-// import Edit from '@material-ui/icons/Edit';
+import Edit from '@material-ui/icons/Edit';
 
 const InputContainer = styled.div`
   display: flex;
@@ -168,60 +173,119 @@ const ButtonsContainer = styled.div`
   }
 `;
 
-const TagItem = ({ tag, deleteTag, addTag, className }) => {
-  const [expanded, setExpanded] = React.useState(false);
-  const [values, setValues] = React.useState(getInitialValues());
-  const [pristine, setPristine] = React.useState(true);
+const Form = ({ onAccept, onCancel, values: initialValues }) => {
+  const [values, setValues] = React.useState(
+    initialValues || getInitialValues()
+  );
+  // const [pristine, setPristine] = React.useState(true);
 
-  React.useEffect(() => {
-    if (!expanded) {
-      resetForm(); // reset after form closed
-    }
-  }, [expanded]);
+  const setValue = (name, value) => {
+    // if (pristine) {
+    //   setPristine(false);
+    // }
+
+    setValues({ ...values, [name]: value });
+  };
+
+  const submit = () => {
+    onAccept(values);
+  };
+
+  return (
+    <div className="Form">
+      <StyledTagForm values={values} onChange={setValue} />
+      <Button onClick={onCancel} type="minimal">
+        <Clear />
+      </Button>
+      <Button onClick={submit} type="minimal">
+        <Done />
+      </Button>
+    </div>
+  );
+};
+
+const TagItem = ({ tag, deleteTag, addTag, updateTag, className }) => {
+  const [expanded, setExpanded] = React.useState(false);
+  const [expandedEdit, setExpandedEdit] = React.useState(false);
+  // const [values, setValues] = React.useState(getInitialValues());
+  // const [pristine, setPristine] = React.useState(true);
+
+  // React.useEffect(() => {
+  //   if (!expanded) {
+  //     resetForm(); // reset after form closed
+  //   }
+  // }, [expanded]);
 
   const expand = () => {
     setExpanded(true);
   };
-  const resetForm = () => {
-    setValues(getInitialValues());
+  const expandEdit = () => {
+    setExpandedEdit(true);
   };
+  // const resetForm = () => {
+  //   setValues(getInitialValues());
+  // };
   const cancel = () => {
     setExpanded(false);
   };
-  const accept = () => {
+  const cancelEdit = () => {
+    setExpandedEdit(false);
+  };
+
+  // const accept = () => {
+  //   const parentId = tag ? tag.id : undefined;
+  //   addTag({ ...values, parentId }).then(() => {
+  //     setExpanded(false);
+  //   });
+  // };
+  const onAccept = (vals) => {
     const parentId = tag ? tag.id : undefined;
-    addTag({ ...values, parentId }).then(() => {
+    addTag({ ...vals, parentId }).then(() => {
       setExpanded(false);
     });
   };
-
-  const setValue = (name, value) => {
-    if (pristine) {
-      setPristine(false);
-    }
-
-    setValues({ ...values, [name]: value });
+  const onAcceptEdit = (vals) => {
+    updateTag(tag.id, vals).then(() => {
+      setExpandedEdit(false);
+    });
   };
+
+  // const setValue = (name, value) => {
+  //   if (pristine) {
+  //     setPristine(false);
+  //   }
+
+  //   setValues({ ...values, [name]: value });
+  // };
 
   return (
     <TagItemContainer className={className}>
       {tag && (
         <MainContainer className="MainContainer">
-          <NameValueBlocks>
-            <NameValueContainer>
-              <h4>Name:</h4>
-              <div>{tag.name}</div>
-            </NameValueContainer>
-            <NameValueContainer>
-              <h4>Value:</h4>
-              <div>{tag.value}</div>
-            </NameValueContainer>
-          </NameValueBlocks>
-          <DeleteConfirmationDialog
-            onAccept={() => {
-              deleteTag(tag.id);
-            }}
-          />
+          {expandedEdit ? (
+            <Form onCancel={cancelEdit} onAccept={onAcceptEdit} values={tag} />
+          ) : (
+            <>
+              <NameValueBlocks>
+                <NameValueContainer>
+                  <h4>Name:</h4>
+                  <div>{tag.name}</div>
+                </NameValueContainer>
+                <NameValueContainer>
+                  <h4>Value:</h4>
+                  <div>{tag.value}</div>
+                </NameValueContainer>
+              </NameValueBlocks>
+              <DeleteConfirmationDialog
+                onAccept={() => {
+                  deleteTag(tag.id);
+                }}
+              />
+              <Button onClick={expandEdit} type="minimal">
+                <Edit />
+              </Button>
+            </>
+          )}
         </MainContainer>
       )}
       {/* list children here recursively */}
@@ -248,13 +312,14 @@ const TagItem = ({ tag, deleteTag, addTag, className }) => {
             )}
             {expanded && (
               <>
-                <Button onClick={cancel} type="minimal">
+                <Form onCancel={cancel} onAccept={onAccept} />
+                {/* <Button onClick={cancel} type="minimal">
                   <Clear />
                 </Button>
                 <Button onClick={accept} type="minimal">
                   <Done />
                 </Button>
-                <StyledTagForm values={values} onChange={setValue} />
+                <StyledTagForm values={values} onChange={setValue} /> */}
               </>
             )}
           </ButtonsContainer>
@@ -334,6 +399,7 @@ const TagPage = (props) => {
               tag={tag}
               deleteTag={deleteFun}
               addTag={props.postTagRequest}
+              updateTag={props.patchTagRequest}
             />
           ))}
         </TagList>
@@ -353,6 +419,7 @@ const mapStateToProps = (state) => ({
 });
 const mapDispatchToProps = (dispatch) => ({
   postTagRequest: (data) => dispatch(postTagRequest(data)),
+  patchTagRequest: (id, data) => dispatch(patchTagRequest(id, data)),
   getTagsRequest: () => dispatch(getTagsRequest()),
   deleteTag: (id) => dispatch(deleteTagRequest(id)),
 });
