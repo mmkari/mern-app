@@ -292,7 +292,13 @@ const TagItem = ({ tag, deleteTag, addTag, updateTag, className }) => {
       {tag && (tag.children || []).length > 0 && (
         <ChildrenContainer className="ChildrenContainer">
           {(tag.children || []).map((childTag) => (
-            <TagItem tag={childTag} deleteTag={deleteTag} addTag={addTag} />
+            <TagItem
+              key={`tag-${childTag.id}`}
+              tag={childTag}
+              deleteTag={deleteTag}
+              addTag={addTag}
+              updateTag={updateTag}
+            />
           ))}
         </ChildrenContainer>
       )}
@@ -330,7 +336,6 @@ const TagItem = ({ tag, deleteTag, addTag, updateTag, className }) => {
 };
 
 const ChildrenContainer = styled.div`
-  // border: 1px solid black;
   padding-left: 3em;
 
   ${connectorStylesChildren};
