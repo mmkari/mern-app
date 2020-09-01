@@ -39,8 +39,17 @@ export default (state = initialState, action) =>
         };
         return;
       case DELETE_TAG_SUCCESS: {
-        const { [action.payload.id]: deleted, ...rest } = draft.tagsById;
-        draft.tagsById = rest;
+        // let result = draft.tagsById;
+        // action.payload.deletedIds.forEach((id) => {
+        //   const { [id]: deleted, ...rest } = result;
+        //   result = rest;
+        // });
+        // draft.tagsById = result;
+
+        draft.tagsById = action.payload.deletedIds.reduce((result, id) => {
+          const { [id]: deleted, ...rest } = result;
+          return rest;
+        }, draft.tagsById);
         return;
       }
       case POST_TAG_SUCCESS: {

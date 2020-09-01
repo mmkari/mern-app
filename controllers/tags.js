@@ -65,8 +65,8 @@ module.exports = {
     getIdsRecursively(id).then((allIds) => {
       Tag.deleteMany({ _id: { $in: allIds } })
         .exec()
-        .then((result) => {
-          res.status(200).json(result);
+        .then(() => {
+          res.status(200).json(allIds);
         })
         .catch((err) => {
           res.status(500).json({ error: err });

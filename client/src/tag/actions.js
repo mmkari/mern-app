@@ -21,10 +21,10 @@ export const getTagSuccess = (data) => {
   };
 };
 
-export const deleteTagSuccess = (id) => {
+export const deleteTagSuccess = (deletedIds) => {
   return {
     type: DELETE_TAG_SUCCESS,
-    payload: { id },
+    payload: { deletedIds },
   };
 };
 
@@ -77,5 +77,5 @@ export const patchTagRequest = (id, data) => (dispatch) =>
 
 export const deleteTagRequest = (id) => (dispatch) =>
   apiRequest(`tags/${id}`, { method: 'delete' })
-    .then(() => dispatch(deleteTagSuccess(id)))
+    .then((deletedIds) => dispatch(deleteTagSuccess(deletedIds)))
     .catch();
