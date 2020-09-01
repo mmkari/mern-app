@@ -1,13 +1,15 @@
 let Tag = require("../models/tag.model");
 
-const getIdsRecursively = async (parentId, result) => {
-  result.push(parentId);
+const getIdsRecursively = async (parentId) => {
+  const result = [parentId]; // add this ID to list
   const children = await Tag.find({ parentId: parentId }).exec();
 
+  // get IDs of children
   const promises = [];
   children.forEach((child) => {
-    promises.push(getIdsRecursively(child._id, result));
+    promises.push(getIdsRecursively(child._id));
   });
+  // return flattened array of IDs
   return Promise.all(promises).then((arrays) => {
     return arrays.reduce((a, b) => [...a, ...b], result);
   });
@@ -60,8 +62,7 @@ module.exports = {
   remove: function (req, res, next) {
     const id = req.params.id;
     // before deleting a node, we need to collect all ids of its children and remove those too
-    let allIds = [];
-    getIdsRecursively(id, allIds).then((allIds) => {
+    getIdsRecursively(id).then((allIds) => {
       Tag.deleteMany({ _id: { $in: allIds } })
         .exec()
         .then((result) => {
