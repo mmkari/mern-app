@@ -53,7 +53,7 @@ const TagForm = ({ values, onChange, className }) => {
 const StyledTagForm = styled(TagForm)`
   // display: flex;
   // align-items: center;
-  border: 1px dashed red;
+  // border: 1px dashed red;
 `;
 
 const getInitialValues = () => ({
@@ -173,7 +173,7 @@ const ButtonsContainer = styled.div`
   }
 `;
 
-const Form = ({ onAccept, onCancel, values: initialValues }) => {
+const BaseForm = ({ onAccept, onCancel, values: initialValues, className }) => {
   const [values, setValues] = React.useState(
     initialValues || getInitialValues()
   );
@@ -192,7 +192,7 @@ const Form = ({ onAccept, onCancel, values: initialValues }) => {
   };
 
   return (
-    <div className="Form">
+    <div className={classnames('Form', className)}>
       <StyledTagForm values={values} onChange={setValue} />
       <Button onClick={onCancel} type="minimal">
         <Clear />
@@ -204,17 +204,13 @@ const Form = ({ onAccept, onCancel, values: initialValues }) => {
   );
 };
 
+const Form = styled(BaseForm)`
+  display: flex;
+`;
+
 const TagItem = ({ tag, deleteTag, addTag, updateTag, className }) => {
   const [expanded, setExpanded] = React.useState(false);
   const [expandedEdit, setExpandedEdit] = React.useState(false);
-  // const [values, setValues] = React.useState(getInitialValues());
-  // const [pristine, setPristine] = React.useState(true);
-
-  // React.useEffect(() => {
-  //   if (!expanded) {
-  //     resetForm(); // reset after form closed
-  //   }
-  // }, [expanded]);
 
   const expand = () => {
     setExpanded(true);
@@ -222,9 +218,6 @@ const TagItem = ({ tag, deleteTag, addTag, updateTag, className }) => {
   const expandEdit = () => {
     setExpandedEdit(true);
   };
-  // const resetForm = () => {
-  //   setValues(getInitialValues());
-  // };
   const cancel = () => {
     setExpanded(false);
   };
@@ -232,12 +225,6 @@ const TagItem = ({ tag, deleteTag, addTag, updateTag, className }) => {
     setExpandedEdit(false);
   };
 
-  // const accept = () => {
-  //   const parentId = tag ? tag.id : undefined;
-  //   addTag({ ...values, parentId }).then(() => {
-  //     setExpanded(false);
-  //   });
-  // };
   const onAccept = (vals) => {
     const parentId = tag ? tag.id : undefined;
     addTag({ ...vals, parentId }).then(() => {
@@ -249,14 +236,6 @@ const TagItem = ({ tag, deleteTag, addTag, updateTag, className }) => {
       setExpandedEdit(false);
     });
   };
-
-  // const setValue = (name, value) => {
-  //   if (pristine) {
-  //     setPristine(false);
-  //   }
-
-  //   setValues({ ...values, [name]: value });
-  // };
 
   return (
     <TagItemContainer className={className}>
@@ -319,13 +298,6 @@ const TagItem = ({ tag, deleteTag, addTag, updateTag, className }) => {
             {expanded && (
               <>
                 <Form onCancel={cancel} onAccept={onAccept} />
-                {/* <Button onClick={cancel} type="minimal">
-                  <Clear />
-                </Button>
-                <Button onClick={accept} type="minimal">
-                  <Done />
-                </Button>
-                <StyledTagForm values={values} onChange={setValue} /> */}
               </>
             )}
           </ButtonsContainer>
@@ -363,13 +335,6 @@ const TagList = styled.ul`
   list-style: none;
 
   ${connectorStylesLeft};
-`;
-
-const DashedButton = styled(Button)`
-  border: 1px dashed black;
-  padding: 1em 2em;
-  width: 100%;
-  margin-bottom: 1em;
 `;
 
 const TagPage = (props) => {
@@ -432,9 +397,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(TagPage);
-
-const Settings = () => {
-  return <div>Add tag management..</div>;
-};
-// export default Settings
-// export default TagPage
