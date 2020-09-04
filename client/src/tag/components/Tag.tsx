@@ -17,7 +17,12 @@ const TagRemoveButton = styled.button`
   }
 `;
 
-const Tag = ({ value, onRemoveClick, className }) => {
+type TagProps = {
+  value: string;
+  onRemoveClick: () => void;
+  className: string;
+};
+const Tag = ({ value, onRemoveClick, className }): React.ReactNode => {
   return (
     <div className={classnames('Tag', className)}>
       {value || '?'}{' '}
