@@ -1,5 +1,7 @@
 import { createSelector } from 'reselect';
-const getTagsById = (state) => state.tagReducers.tagsById;
+import { TagsByIdMap } from 'tag/types';
+
+const getTagsById = (state): TagsByIdMap => state.tagReducers.tagsById;
 
 const getTags = createSelector(
   [getTagsById],

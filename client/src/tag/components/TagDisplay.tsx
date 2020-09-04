@@ -7,9 +7,21 @@ import classnames from 'classnames';
 import { getTagsRequest } from 'tag/actions';
 
 import { getTags, getTagsById } from 'tag/selectors';
+import { TagsByIdMap } from 'tag/types';
 
+type MapDispatchToProps = {
+  getTagsRequest: () => void;
+};
+type MapStateToProps = {
+  tagsById: TagsByIdMap;
+};
+type ReduxProps = MapDispatchToProps & MapStateToProps;
+type TagDisplayProps = {
+  value: number;
+  className: string;
+} & ReduxProps;
 // reads all tags from store, props can define list of nodes to include as options
-class TagDisplay extends React.Component {
+class TagDisplay extends React.Component<TagDisplayProps> {
   componentDidMount = () => {
     // TODO only make sure selected tags exist in store
     this.props.getTagsRequest();
