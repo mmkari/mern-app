@@ -1,13 +1,14 @@
 import apiRequest from 'core/api';
 
-export const GET_MOVIES_SUCCESS = 'actions/GET_MOVIES_SUCCESS';
-export const DELETE_MOVIE_SUCCESS = 'actions/DELETE_MOVIE_SUCCESS';
-export const POST_MOVIE_SUCCESS = 'actions/POST_MOVIE_SUCCESS';
-export const PATCH_MOVIE_SUCCESS = 'actions/PATCH_MOVIE_SUCCESS';
-
-export const SET_ACTIVE_MOVIE = 'actions/SET_ACTIVE_MOVIE';
-// export const SET_FILTERED_IDS = 'actions/SET_FILTERED_IDS'; // decouple
-export const GET_MOVIE_SUCCESS = 'actions/GET_MOVIE_SUCCESS';
+import {
+  GET_MOVIES_SUCCESS,
+  GET_MOVIE_SUCCESS,
+  DELETE_MOVIE_SUCCESS,
+  POST_MOVIE_SUCCESS,
+  PATCH_MOVIE_SUCCESS,
+  SET_ACTIVE_MOVIE,
+  // SET_FILTERED_IDS,
+} from 'movie/types';
 
 export const setActiveMovie = (id) => {
   return {

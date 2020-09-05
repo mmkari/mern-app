@@ -4,7 +4,12 @@ import FormConfirmation from 'core/components/FormConfirmation';
 
 import Add from '@material-ui/icons/Add';
 
-const getInitialValues = () => ({
+import {
+  AddMovieDialogFormValues,
+  AddMovieDialogFormValuesResponse,
+} from 'movie/types';
+
+const getInitialValues = (): AddMovieDialogFormValues => ({
   title: '',
   fixed: true,
   date: null,
@@ -13,8 +18,16 @@ const getInitialValues = () => ({
 
 const buttonContentRenderer = () => <Add />;
 
-const AddMovieDialog = ({ onAccept, dialogContent }) => {
-  const accept = (values) => {
+type ContentRendererProps = {
+  setValue: (name: string, value: any) => void;
+  values: AddMovieDialogFormValues;
+};
+type AddMovieDialogProps = {
+  onAccept: (values: object) => void;
+  dialogContent: React.ReactNode | string;
+};
+const AddMovieDialog = ({ onAccept, dialogContent }: AddMovieDialogProps) => {
+  const accept = (values: AddMovieDialogFormValuesResponse) => {
     const { tagOption, ...rest } = values;
     const parsedValues = { ...rest, tags: [tagOption.value] };
     return onAccept(parsedValues);
@@ -24,7 +37,7 @@ const AddMovieDialog = ({ onAccept, dialogContent }) => {
     <div>
       <FormConfirmation
         title={'Add movie'}
-        contentRenderer={({ setValue, values }) => (
+        contentRenderer={({ setValue, values }: ContentRendererProps) => (
           <div>
             <AddMovieDialogForm onChange={setValue} values={values} />
           </div>

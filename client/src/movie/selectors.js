@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+
 const getMoviesById = (state) => state.movieReducers.moviesById;
 
 const getActiveMovieId = (state) => state.movieReducers.activeMovieId;

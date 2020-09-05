@@ -43,7 +43,24 @@ const getInitialValues = () => ({
   rating: null,
 });
 
-const MoviePage = (props) => {
+type MapDispatchToProps = {
+  setActiveMovieRequest: (id: string | null) => void;
+  getMovieRequest: (id: string) => Promise<any>;
+  getReviewsRequest: (query: Object) => void;
+  postReviewRequest: (data: Object) => void;
+  getAverageRatingsByMovie: (query: Object) => void;
+  patchMovieRequest: (id: string, data: Object) => void;
+};
+type MapStateToProps = {
+  activeMovie: null | any;
+  activeMovieReviews: Object[];
+  averageRatingsByMovieId: { [id: string]: number };
+};
+type MoviePageProps = MapDispatchToProps &
+  MapStateToProps & {
+    match: { params: { id: string } };
+  };
+const MoviePage = (props: MoviePageProps) => {
   const [values, setValues] = React.useState(getInitialValues());
 
   React.useEffect(() => {
@@ -72,7 +89,7 @@ const MoviePage = (props) => {
     return <div>Loading...</div>;
   }
 
-  const onChange = (name, value) => {
+  const onChange = (name: string, value: string) => {
     setValues((prev) => ({ ...prev, [name]: value }));
   };
 
@@ -82,7 +99,7 @@ const MoviePage = (props) => {
   };
 
   // TODO use patchMovieRequest
-  const updateRating = (id, rating) => {
+  const updateRating = (id: string, rating: number) => {
     // this.props.patchMovieRequest(id, { rating });
   };
 

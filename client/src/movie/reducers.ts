@@ -7,9 +7,11 @@ import {
   PATCH_MOVIE_SUCCESS,
   SET_ACTIVE_MOVIE,
   // SET_FILTERED_IDS,
-} from 'movie/actions';
+} from 'movie/types';
 
 import produce from 'immer';
+
+import { Movie, MovieActionType } from 'movie/types';
 
 const initialState = {
   activeMovieId: null,
@@ -17,7 +19,7 @@ const initialState = {
   moviesById: {},
 };
 
-const parseMovie = (movie) => ({
+const parseMovie = (movie): Movie => ({
   id: movie._id,
   title: movie.title,
   fixed: movie.fixed,
@@ -25,7 +27,7 @@ const parseMovie = (movie) => ({
   tags: movie.tags || [], // preserve empty arrays
 });
 
-export default (state = initialState, action) =>
+export default (state = initialState, action: MovieActionType) =>
   produce(state, (draft) => {
     switch (action.type) {
       case SET_ACTIVE_MOVIE:

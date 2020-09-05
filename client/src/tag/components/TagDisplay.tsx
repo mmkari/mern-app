@@ -18,7 +18,7 @@ type MapStateToProps = {
 type ReduxProps = MapDispatchToProps & MapStateToProps;
 type TagDisplayProps = {
   value: number;
-  className: string;
+  className?: string;
 } & ReduxProps;
 // reads all tags from store, props can define list of nodes to include as options
 class TagDisplay extends React.Component<TagDisplayProps> {
