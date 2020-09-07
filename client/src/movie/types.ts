@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { TagOption } from 'tag/types';
 
 export const GET_MOVIES_SUCCESS = 'actions/GET_MOVIES_SUCCESS';
 export const DELETE_MOVIE_SUCCESS = 'actions/DELETE_MOVIE_SUCCESS';
@@ -21,6 +22,12 @@ export type AddMovieDialogFormValuesResponse = AddMovieDialogFormBase & {
   tagOption: { value: string; label: string };
 };
 
+export type MoviesQuery = {
+  filterTag: null | TagOption;
+  minRating: number;
+  maxRating: number;
+};
+
 export type Movie = {
   id: string;
   title: string;
@@ -28,6 +35,14 @@ export type Movie = {
   averageRating: number;
   tags: Object[];
 };
+export type MovieUpdate = {
+  // id: string;
+  title?: string;
+  fixed?: boolean;
+  averageRating?: number;
+  tags?: Object[];
+};
+
 export type MovieApiResponse = {
   _id: string;
   title: string;
@@ -35,6 +50,7 @@ export type MovieApiResponse = {
   averageRating: number;
   tags: Object[];
 };
+export type MoviesByIdMap = { [id: string]: Movie };
 
 export type SetActiveMovieAction = {
   type: typeof SET_ACTIVE_MOVIE;
@@ -59,7 +75,7 @@ export type DeleteMovieSuccessAction = {
 
 export type PostMovieSuccessAction = {
   type: typeof POST_MOVIE_SUCCESS;
-  payload: { data: Object };
+  payload: { data: MovieApiResponse };
 };
 
 export type PatchMovieSuccessAction = {
@@ -74,3 +90,9 @@ export type MovieActionType =
   | DeleteMovieSuccessAction
   | PostMovieSuccessAction
   | PatchMovieSuccessAction;
+
+export type MovieState = {
+  activeMovieId: string | null;
+  filteredIds: string[] | null;
+  moviesById: { [id: string]: Movie };
+};

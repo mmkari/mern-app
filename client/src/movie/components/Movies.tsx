@@ -31,6 +31,9 @@ import { getAverageRatingsByMovieId } from 'review/selectors';
 
 import useContainerDimensions from 'core/hooks';
 
+import { Movie as MovieType } from 'movie/types';
+import { Tag as TagType } from 'tag/types';
+
 const TableHeading = styled.div`
   display: flex;
   align-items: center;
@@ -110,9 +113,25 @@ const ratingFilterOptions = [
   { value: 5, label: '5' },
 ];
 
-class Movies extends React.Component {
+type MapStateToProps = {
+  movies: null | MovieType[];
+  filters: any;
+  filterTags: null | TagType[];
+  averageRatingsByMovieId: { [id: string]: number };
+};
+
+type MapDispatchToProps = {
+  getMoviesRequest: (query) => Promise<any>;
+  deleteMovieRequest: (id) => Promise<any>;
+  postMovieRequest: (data) => Promise<any>;
+  setFilters: (filters) => Promise<any>;
+  getAverageRatingsByMovie: () => Promise<any>;
+};
+
+type MoviesProps = MapStateToProps & MapDispatchToProps & {};
+class Movies extends React.Component<MoviesProps> {
   componentDidMount() {
-    this.getMovies();
+    this.getMovies(undefined);
     // TODO get average reviews in saga
     this.props.getAverageRatingsByMovie();
   }
@@ -159,7 +178,7 @@ class Movies extends React.Component {
 
   removeTagFilter = () => {
     // TODO handle tag array
-    this.changeFilter('filterTag', undefined);
+    // this.changeFilter('filterTag', undefined);
   };
 
   removeRating = (name) => {
@@ -179,7 +198,7 @@ class Movies extends React.Component {
   };
 
   render() {
-    const { data, filters, filterTags, averageRatingsByMovieId } = this.props;
+    const { filters, filterTags, averageRatingsByMovieId } = this.props;
     const { filterTag, sortBy, sortDirection, minRating, maxRating } = filters;
 
     return (

@@ -7,13 +7,16 @@ import {
   PATCH_MOVIE_SUCCESS,
   SET_ACTIVE_MOVIE,
   // SET_FILTERED_IDS,
+  MovieApiResponse,
+  MovieState,
+  Movie,
+  MovieActionType,
+  MoviesByIdMap,
 } from 'movie/types';
 
 import produce from 'immer';
 
-import { Movie, MovieActionType } from 'movie/types';
-
-const initialState = {
+const initialState: MovieState = {
   activeMovieId: null,
   filteredIds: null, // TODO decouple table filtering from movie store
   moviesById: {},
@@ -27,7 +30,7 @@ const parseMovie = (movie): Movie => ({
   tags: movie.tags || [], // preserve empty arrays
 });
 
-export default (state = initialState, action: MovieActionType) =>
+export default (state = initialState, action: MovieActionType): MovieState =>
   produce(state, (draft) => {
     switch (action.type) {
       case SET_ACTIVE_MOVIE:
@@ -48,15 +51,17 @@ export default (state = initialState, action: MovieActionType) =>
         draft.moviesById[movie._id] = parseMovie(movie);
         return;
       case DELETE_MOVIE_SUCCESS: {
-        const { [action.payload.id]: deleted, ...rest } = draft.moviesById;
+        const {
+          [action.payload.id]: deleted,
+          ...rest
+        }: MoviesByIdMap = draft.moviesById;
         draft.moviesById = rest;
         return;
       }
       case POST_MOVIE_SUCCESS: {
-        if (action.payload.data) {
-          draft.moviesById[action.payload.data._id] = parseMovie(
-            action.payload.data
-          );
+        const data: MovieApiResponse = action.payload.data;
+        if (data) {
+          draft.moviesById[data._id] = parseMovie(data);
         }
         return;
       }

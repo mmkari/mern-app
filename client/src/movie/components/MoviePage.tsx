@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
 
 import {
   setActiveMovie,
@@ -27,6 +28,8 @@ import Reviews from 'review/components/Reviews';
 
 import CheckIcon from '@material-ui/icons/Check';
 import ClearIcon from '@material-ui/icons/Clear';
+
+import { RootState } from 'core/types';
 
 const Container = styled.div`
   display: flex;
@@ -141,21 +144,22 @@ const MoviePage = (props: MoviePageProps) => {
     </div>
   );
 };
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: RootState): MapStateToProps => ({
   activeMovie: getActiveMovie(state),
   activeMovieReviews: getActiveMovieReviews(state),
   averageRatingsByMovieId: getAverageRatingsByMovieId(state),
 });
-const mapDispatchToProps = (dispatch) => ({
-  setActiveMovieRequest: (id) => dispatch(setActiveMovie(id)),
-  getMovieRequest: (id) => dispatch(getMovieRequest(id)),
+const mapDispatchToProps = (dispatch: any) => ({
+  setActiveMovieRequest: (id: string) => dispatch(setActiveMovie(id)),
+  getMovieRequest: (id: string) => dispatch(getMovieRequest(id)),
   //
-  getReviewsRequest: (query) => dispatch(getReviewsRequest(query)),
-  postReviewRequest: (data) => dispatch(postReviewRequest(data)),
+  getReviewsRequest: (query: any) => dispatch(getReviewsRequest(query)),
+  postReviewRequest: (data: any) => dispatch(postReviewRequest(data)),
   //
-  getAverageRatingsByMovie: (query) =>
+  getAverageRatingsByMovie: (query: any) =>
     dispatch(getReviewsAggregateAverageRatingByMovieRequest(query)),
-  patchMovieRequest: (id, data) => dispatch(patchMovieRequest(id, data)),
+  patchMovieRequest: (id: string, data: any) =>
+    dispatch(patchMovieRequest(id, data)),
 });
 export default connect(
   mapStateToProps,

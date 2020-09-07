@@ -1,4 +1,5 @@
 import apiRequest from 'core/api';
+import { ThunkResult } from 'core/types';
 
 import {
   GET_MOVIES_SUCCESS,
@@ -8,9 +9,13 @@ import {
   PATCH_MOVIE_SUCCESS,
   SET_ACTIVE_MOVIE,
   // SET_FILTERED_IDS,
+  MovieApiResponse,
+  MovieActionType,
+  MovieUpdate,
+  MoviesQuery,
 } from 'movie/types';
 
-export const setActiveMovie = (id) => {
+export const setActiveMovie = (id: string) => {
   return {
     type: SET_ACTIVE_MOVIE,
     payload: id,
@@ -24,7 +29,10 @@ export const setActiveMovie = (id) => {
 //   };
 // };
 
-export const getMoviesSuccess = (data, query) => {
+export const getMoviesSuccess = (
+  data: MovieApiResponse[],
+  query: any
+): MovieActionType => {
   return {
     type: GET_MOVIES_SUCCESS,
     payload: data,
@@ -32,35 +40,40 @@ export const getMoviesSuccess = (data, query) => {
   };
 };
 
-export const getMovieSuccess = (data) => {
+export const getMovieSuccess = (data: MovieApiResponse): MovieActionType => {
   return {
     type: GET_MOVIE_SUCCESS,
     payload: data,
   };
 };
 
-export const deleteMovieSuccess = (id) => {
+export const deleteMovieSuccess = (id: string): MovieActionType => {
   return {
     type: DELETE_MOVIE_SUCCESS,
     payload: { id },
   };
 };
 
-export const postMovieSuccess = (data) => {
+export const postMovieSuccess = (data: MovieApiResponse): MovieActionType => {
   return {
     type: POST_MOVIE_SUCCESS,
     payload: { data },
   };
 };
 
-export const patchMovieSuccess = (id, data) => {
+export const patchMovieSuccess = (
+  id: string,
+  data: MovieApiResponse
+): MovieActionType => {
   return {
     type: PATCH_MOVIE_SUCCESS,
     payload: { id, data },
   };
 };
 
-export const getMovieRequest = (id) => (dispatch) =>
+export const getMovieRequest = (id: string): ThunkResult<Promise<any>> => (
+  dispatch
+) =>
   apiRequest(`movies/${id}`)
     .then((res) => {
       dispatch(getMovieSuccess(res));
@@ -68,13 +81,17 @@ export const getMovieRequest = (id) => (dispatch) =>
     })
     .catch();
 
-export const getMoviesAggregateRatingGroupsRequest = (query) => (dispatch) =>
+export const getMoviesAggregateRatingGroupsRequest = (): ThunkResult<
+  Promise<any>
+> => (dispatch) =>
   apiRequest('movies/aggregate/rating_groups')
     .then((res) => res)
     .catch();
 // .then((res) => dispatch(getMoviesSuccess(res, query)))
 
-export const getMoviesRequest = (query) => (dispatch) =>
+export const getMoviesRequest = (
+  query: MoviesQuery
+): ThunkResult<Promise<any>> => (dispatch) =>
   apiRequest('movies', {
     query: query,
   })
@@ -87,17 +104,22 @@ export const getMoviesRequest = (query) => (dispatch) =>
     })
     .catch();
 
-export const postMovieRequest = (data) => (dispatch) =>
+export const postMovieRequest = (
+  data: MovieUpdate
+): ThunkResult<Promise<any>> => (dispatch) =>
   apiRequest(`movies`, {
     method: 'post',
     data: data,
   })
-    .then((res) => {
+    .then((res: MovieApiResponse) => {
       dispatch(postMovieSuccess(res));
     })
     .catch();
 
-export const patchMovieRequest = (id, data) => (dispatch) =>
+export const patchMovieRequest = (
+  id: string,
+  data: MovieUpdate
+): ThunkResult<Promise<any>> => (dispatch) =>
   apiRequest(`movies/${id}`, {
     method: 'patch',
     data: data,
@@ -107,7 +129,9 @@ export const patchMovieRequest = (id, data) => (dispatch) =>
     })
     .catch();
 
-export const deleteMovieRequest = (id) => (dispatch) =>
+export const deleteMovieRequest = (id: string): ThunkResult<Promise<any>> => (
+  dispatch
+) =>
   apiRequest(`movies/${id}`, { method: 'delete' })
     .then(() => dispatch(deleteMovieSuccess(id)))
     .catch();

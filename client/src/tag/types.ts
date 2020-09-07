@@ -8,3 +8,5 @@ export type Tag = {
 };
 
 export type TagsByIdMap = { [key: string]: Tag };
+
+export type TagOption = { value: string; label: string };

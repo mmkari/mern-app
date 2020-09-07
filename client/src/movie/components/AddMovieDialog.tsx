@@ -24,9 +24,8 @@ type ContentRendererProps = {
 };
 type AddMovieDialogProps = {
   onAccept: (values: object) => void;
-  dialogContent: React.ReactNode | string;
 };
-const AddMovieDialog = ({ onAccept, dialogContent }: AddMovieDialogProps) => {
+const AddMovieDialog = ({ onAccept }: AddMovieDialogProps) => {
   const accept = (values: AddMovieDialogFormValuesResponse) => {
     const { tagOption, ...rest } = values;
     const parsedValues = { ...rest, tags: [tagOption.value] };
