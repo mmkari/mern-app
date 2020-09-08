@@ -22,11 +22,11 @@ const initialState: MovieState = {
   moviesById: {},
 };
 
-const parseMovie = (movie): Movie => ({
+const parseMovie = (movie: MovieApiResponse): Movie => ({
   id: movie._id,
-  title: movie.title,
-  fixed: movie.fixed,
-  averageRating: movie.averageRating,
+  title: movie.title || '',
+  fixed: movie.fixed || false,
+  averageRating: !movie.averageRating ? 0 : movie.averageRating,
   tags: movie.tags || [], // preserve empty arrays
 });
 
@@ -66,11 +66,8 @@ export default (state = initialState, action: MovieActionType): MovieState =>
         return;
       }
       case PATCH_MOVIE_SUCCESS: {
-        draft.moviesById[action.payload.id] = {
-          id: action.payload.id,
-          ...draft.moviesById[action.payload.id],
-          ...action.payload.data,
-        };
+        const data: MovieApiResponse = action.payload.data;
+        draft.moviesById[action.payload.id] = parseMovie(data);
       }
     }
   });

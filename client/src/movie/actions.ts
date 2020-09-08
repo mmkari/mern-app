@@ -11,7 +11,6 @@ import {
   // SET_FILTERED_IDS,
   MovieApiResponse,
   MovieActionType,
-  MovieUpdate,
   MoviesQuery,
 } from 'movie/types';
 
@@ -71,9 +70,7 @@ export const patchMovieSuccess = (
   };
 };
 
-export const getMovieRequest = (id: string): ThunkResult<Promise<any>> => (
-  dispatch
-) =>
+export const getMovieRequest = (id: string): ThunkResult => (dispatch) =>
   apiRequest(`movies/${id}`)
     .then((res) => {
       dispatch(getMovieSuccess(res));
@@ -81,17 +78,17 @@ export const getMovieRequest = (id: string): ThunkResult<Promise<any>> => (
     })
     .catch();
 
-export const getMoviesAggregateRatingGroupsRequest = (): ThunkResult<
-  Promise<any>
-> => (dispatch) =>
+export const getMoviesAggregateRatingGroupsRequest = (): ThunkResult => (
+  dispatch
+) =>
   apiRequest('movies/aggregate/rating_groups')
     .then((res) => res)
     .catch();
 // .then((res) => dispatch(getMoviesSuccess(res, query)))
 
-export const getMoviesRequest = (
-  query: MoviesQuery
-): ThunkResult<Promise<any>> => (dispatch) =>
+export const getMoviesRequest = (query: MoviesQuery): ThunkResult => (
+  dispatch
+) =>
   apiRequest('movies', {
     query: query,
   })
@@ -104,9 +101,9 @@ export const getMoviesRequest = (
     })
     .catch();
 
-export const postMovieRequest = (
-  data: MovieUpdate
-): ThunkResult<Promise<any>> => (dispatch) =>
+export const postMovieRequest = (data: MovieApiResponse): ThunkResult => (
+  dispatch
+) =>
   apiRequest(`movies`, {
     method: 'post',
     data: data,
@@ -118,8 +115,8 @@ export const postMovieRequest = (
 
 export const patchMovieRequest = (
   id: string,
-  data: MovieUpdate
-): ThunkResult<Promise<any>> => (dispatch) =>
+  data: MovieApiResponse
+): ThunkResult => (dispatch) =>
   apiRequest(`movies/${id}`, {
     method: 'patch',
     data: data,
@@ -129,9 +126,7 @@ export const patchMovieRequest = (
     })
     .catch();
 
-export const deleteMovieRequest = (id: string): ThunkResult<Promise<any>> => (
-  dispatch
-) =>
+export const deleteMovieRequest = (id: string): ThunkResult => (dispatch) =>
   apiRequest(`movies/${id}`, { method: 'delete' })
     .then(() => dispatch(deleteMovieSuccess(id)))
     .catch();

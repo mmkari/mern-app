@@ -35,20 +35,13 @@ export type Movie = {
   averageRating: number;
   tags: Object[];
 };
-export type MovieUpdate = {
-  // id: string;
+
+export type MovieApiResponse = {
+  _id: string;
   title?: string;
   fixed?: boolean;
   averageRating?: number;
   tags?: Object[];
-};
-
-export type MovieApiResponse = {
-  _id: string;
-  title: string;
-  fixed: boolean;
-  averageRating: number;
-  tags: Object[];
 };
 export type MoviesByIdMap = { [id: string]: Movie };
 
@@ -70,7 +63,7 @@ export type GetMovieSuccessAction = {
 
 export type DeleteMovieSuccessAction = {
   type: typeof DELETE_MOVIE_SUCCESS;
-  payload: { id?: string; [propName: string]: string };
+  payload: { id: string; [propName: string]: string };
 };
 
 export type PostMovieSuccessAction = {
@@ -80,7 +73,7 @@ export type PostMovieSuccessAction = {
 
 export type PatchMovieSuccessAction = {
   type: typeof PATCH_MOVIE_SUCCESS;
-  payload: { id: string; data: Object };
+  payload: { id: string; data: MovieApiResponse };
 };
 
 export type MovieActionType =

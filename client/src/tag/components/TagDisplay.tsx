@@ -8,6 +8,7 @@ import { getTagsRequest } from 'tag/actions';
 
 import { getTags, getTagsById } from 'tag/selectors';
 import { TagsByIdMap } from 'tag/types';
+import { RootState, ThunkDispatch } from 'core/types';
 
 type MapDispatchToProps = {
   getTagsRequest: () => void;
@@ -54,10 +55,10 @@ const StyledTagDisplay = styled(TagDisplay)`
   justify-content: center;
 `;
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: RootState) => ({
   tagsById: getTagsById(state),
 });
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch: ThunkDispatch) => ({
   //   postTagRequest: (data) => dispatch(postTagRequest(data)),
   getTagsRequest: () => dispatch(getTagsRequest()),
   //   deleteTag: (id) => dispatch(deleteTagRequest(id)),

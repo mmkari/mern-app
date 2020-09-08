@@ -1,7 +1,18 @@
-import { Action } from 'redux';
-import { ThunkAction } from 'redux-thunk';
+import { Action, AnyAction } from 'redux';
+import { ThunkAction, ThunkDispatch as Dispatch } from 'redux-thunk';
 import { StateType } from 'typesafe-actions';
 import rootReducer from 'core/rootReducer';
+
+export type BoundingClientRect = {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  top: number;
+  right: number;
+  bottom: number;
+  left: number;
+};
 
 // export type RootState = {
 //   movieReducers: any;
@@ -11,4 +22,5 @@ import rootReducer from 'core/rootReducer';
 // };
 export type RootState = StateType<typeof rootReducer>;
 
-export type ThunkResult<R> = ThunkAction<R, RootState, null, Action<string>>;
+export type ThunkDispatch = Dispatch<RootState, null, AnyAction>;
+export type ThunkResult = ThunkAction<Promise<any>, RootState, null, AnyAction>;

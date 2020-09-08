@@ -29,7 +29,7 @@ import Reviews from 'review/components/Reviews';
 import CheckIcon from '@material-ui/icons/Check';
 import ClearIcon from '@material-ui/icons/Clear';
 
-import { RootState } from 'core/types';
+import { RootState, ThunkDispatch } from 'core/types';
 
 const Container = styled.div`
   display: flex;
@@ -47,23 +47,23 @@ const getInitialValues = () => ({
 });
 
 type MapDispatchToProps = {
-  setActiveMovieRequest: (id: string | null) => void;
+  setActiveMovieRequest: (id: string | null) => Promise<any>;
   getMovieRequest: (id: string) => Promise<any>;
-  getReviewsRequest: (query: Object) => void;
-  postReviewRequest: (data: Object) => void;
-  getAverageRatingsByMovie: (query: Object) => void;
-  patchMovieRequest: (id: string, data: Object) => void;
+  getReviewsRequest: (query: Object) => Promise<any>;
+  postReviewRequest: (data: Object) => Promise<any>;
+  getAverageRatingsByMovie: (query: Object) => Promise<any>;
+  patchMovieRequest: (id: string, data: Object) => Promise<any>;
 };
 type MapStateToProps = {
   activeMovie: null | any;
-  activeMovieReviews: Object[];
+  activeMovieReviews: any;
   averageRatingsByMovieId: { [id: string]: number };
 };
 type MoviePageProps = MapDispatchToProps &
   MapStateToProps & {
     match: { params: { id: string } };
   };
-const MoviePage = (props: MoviePageProps) => {
+const MoviePage = (props: any) => {
   const [values, setValues] = React.useState(getInitialValues());
 
   React.useEffect(() => {
@@ -149,7 +149,7 @@ const mapStateToProps = (state: RootState): MapStateToProps => ({
   activeMovieReviews: getActiveMovieReviews(state),
   averageRatingsByMovieId: getAverageRatingsByMovieId(state),
 });
-const mapDispatchToProps = (dispatch: any) => ({
+const mapDispatchToProps = (dispatch: ThunkDispatch) => ({
   setActiveMovieRequest: (id: string) => dispatch(setActiveMovie(id)),
   getMovieRequest: (id: string) => dispatch(getMovieRequest(id)),
   //

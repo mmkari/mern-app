@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import MovieTable from 'movieTable/components/MovieTable';
@@ -32,7 +33,9 @@ import { getAverageRatingsByMovieId } from 'review/selectors';
 import useContainerDimensions from 'core/hooks';
 
 import { Movie as MovieType } from 'movie/types';
-import { Tag as TagType } from 'tag/types';
+import { Tag as TagType, TagOption } from 'tag/types';
+import { SelectOption } from 'input/types';
+import { BoundingClientRect, RootState, ThunkDispatch } from 'core/types';
 
 const TableHeading = styled.div`
   display: flex;
@@ -86,7 +89,14 @@ const Toolbar = styled.div`
   justify-content: flex-end;
 `;
 
-const MovieContainer = ({ children }) => {
+type MovieContainerProps = {
+  children: React.ReactNode;
+};
+type MovieContainerRenderProps = {
+  ref: any;
+  dimensions: BoundingClientRect;
+};
+const MovieContainer = ({ children }: MovieContainerProps) => {
   const [ref, dimensions] = useContainerDimensions();
 
   if (typeof children === 'function') {
@@ -98,7 +108,7 @@ const Sort = () => {
   //
   return <div>SORT COMP</div>;
 };
-const Count = ({ value }) => {
+const Count = ({ value }: any) => {
   //
   return (
     <div style={{ color: 'red', padding: '1em' }}>{`${value} RESULTS`}</div>
@@ -113,6 +123,11 @@ const ratingFilterOptions = [
   { value: 5, label: '5' },
 ];
 
+type SortOption = {
+  sortBy: string;
+  sortDirection: string;
+};
+
 type MapStateToProps = {
   movies: null | MovieType[];
   filters: any;
@@ -121,11 +136,11 @@ type MapStateToProps = {
 };
 
 type MapDispatchToProps = {
-  getMoviesRequest: (query) => Promise<any>;
-  deleteMovieRequest: (id) => Promise<any>;
-  postMovieRequest: (data) => Promise<any>;
-  setFilters: (filters) => Promise<any>;
-  getAverageRatingsByMovie: () => Promise<any>;
+  getMoviesRequest: (query?: any) => any;
+  deleteMovieRequest: (id: string) => Promise<any>;
+  postMovieRequest: (data: any) => Promise<any>;
+  getAverageRatingsByMovie: () => any;
+  setFilters: (filters: Object) => any;
 };
 
 type MoviesProps = MapStateToProps & MapDispatchToProps & {};
@@ -136,7 +151,7 @@ class Movies extends React.Component<MoviesProps> {
     this.props.getAverageRatingsByMovie();
   }
 
-  onSubmit = (data) => {
+  onSubmit = (data: any) => {
     return this.props
       .postMovieRequest(data)
       .then((res) => {
@@ -145,11 +160,11 @@ class Movies extends React.Component<MoviesProps> {
       .catch((err) => err);
   };
 
-  getMovies(query) {
+  getMovies(query: any) {
     this.props.getMoviesRequest(query);
   }
 
-  addTagFilter = (option) => {
+  addTagFilter = (option: TagOption) => {
     const { filters } = this.props;
 
     // TODO support tag array
@@ -157,7 +172,7 @@ class Movies extends React.Component<MoviesProps> {
     this.props.setFilters(updatedFilters);
   };
 
-  onStarFilterChange = (option, name) => {
+  onStarFilterChange = (option: SelectOption, name: string) => {
     const { filters } = this.props;
     const { minRating: prevMinRating, maxRating: prevMaxRating } = filters;
 
@@ -181,7 +196,7 @@ class Movies extends React.Component<MoviesProps> {
     // this.changeFilter('filterTag', undefined);
   };
 
-  removeRating = (name) => {
+  removeRating = (name: string) => {
     const { filters } = this.props;
     const { [name]: deleted, ...updatedFilters } = filters;
 
@@ -192,7 +207,7 @@ class Movies extends React.Component<MoviesProps> {
     this.props.setFilters({});
   };
 
-  onSort = ({ sortBy, sortDirection }) => {
+  onSort = ({ sortBy, sortDirection }: SortOption) => {
     const updatedFilters = { ...this.props.filters, sortBy, sortDirection };
     this.props.setFilters(updatedFilters);
   };
@@ -203,7 +218,7 @@ class Movies extends React.Component<MoviesProps> {
 
     return (
       <MovieContainer>
-        {({ ref, dimensions }) => (
+        {({ ref, dimensions }: MovieContainerRenderProps) => (
           <div className="Movies" ref={ref}>
             <TableHeading>
               <h2>MAIN PAGE</h2>
@@ -238,15 +253,16 @@ class Movies extends React.Component<MoviesProps> {
             </TableFilters>
             <ActiveTableFilters>
               <FilterContainer>
-                {filterTags.map((tag) => (
-                  <TagWithRemove key={`item-${tag.id}`}>
-                    <Tag
-                      value={tag.name}
-                      onRemoveClick={this.removeTagFilter}
-                    />
-                    {/* <button onClick={this.removeTagFilter}>x</button> */}
-                  </TagWithRemove>
-                ))}
+                {filterTags &&
+                  filterTags.map((tag) => (
+                    <TagWithRemove key={`item-${tag.id}`}>
+                      <Tag
+                        value={tag.name}
+                        onRemoveClick={this.removeTagFilter}
+                      />
+                      {/* <button onClick={this.removeTagFilter}>x</button> */}
+                    </TagWithRemove>
+                  ))}
                 {minRating && (
                   <TagWithRemove>
                     <Tag
@@ -267,12 +283,12 @@ class Movies extends React.Component<MoviesProps> {
                     />
                   </TagWithRemove>
                 )}
-                {(filterTags.length > 0 || minRating || maxRating) && (
+                {((filterTags || []).length > 0 || minRating || maxRating) && (
                   <button onClick={this.clearAllFilters}>CLEAR FILTERS</button>
                 )}
               </FilterContainer>
               <Toolbar>
-                <Count value={this.props.movies.length} />
+                <Count value={(this.props.movies || []).length} />
                 <ListIcon />
                 <SwitchButton
                   checked={false}
@@ -303,7 +319,7 @@ class Movies extends React.Component<MoviesProps> {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: RootState): MapStateToProps => ({
   // movies: getMovies(state),
   movies: getMoviesFiltered(state),
   filters: getFilters(state),
@@ -311,7 +327,7 @@ const mapStateToProps = (state) => ({
   averageRatingsByMovieId: getAverageRatingsByMovieId(state),
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch: ThunkDispatch): MapDispatchToProps => ({
   getMoviesRequest: (query) => dispatch(getMoviesRequest(query)),
   deleteMovieRequest: (id) => dispatch(deleteMovieRequest(id)),
   postMovieRequest: (data) => dispatch(postMovieRequest(data)),
@@ -322,7 +338,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(getReviewsAggregateAverageRatingByMovieRequest()),
 });
 
-export default connect(
+export default connect<MapStateToProps, MapDispatchToProps, null, RootState>(
   mapStateToProps,
   mapDispatchToProps
 )(Movies);
