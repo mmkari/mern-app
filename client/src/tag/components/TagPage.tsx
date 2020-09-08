@@ -19,6 +19,9 @@ import TagItem, {
   connectorPaddingLeft,
 } from 'tag/components/TagItem';
 
+import { Tag } from 'tag/types';
+import { RootState, ThunkDispatch } from 'core/types';
+
 const connectorStylesLeft = css`
   &::after {
     ${commonConnectorStyles}
@@ -43,7 +46,17 @@ const TagList = styled.ul`
   ${connectorStylesLeft};
 `;
 
-const TagPage = (props) => {
+type MapStateToProps = {
+  tags: Tag[] | null;
+};
+type MapDispatchToProps = {
+  postTagRequest: (data: { [key: string]: any }) => Promise<any>;
+  patchTagRequest: (id: string, data: { [key: string]: any }) => Promise<any>;
+  getTagsRequest: () => Promise<any>;
+  deleteTag: (id: string) => Promise<any>;
+};
+type TagPageProps = MapStateToProps & MapDispatchToProps & {};
+const TagPage = (props: TagPageProps) => {
   React.useEffect(() => {
     props.getTagsRequest();
   }, []);
@@ -59,7 +72,7 @@ const TagPage = (props) => {
   if (tags) {
   }
 
-  const deleteFun = (id) => {
+  const deleteFun = (id: string) => {
     return props.deleteTag(id);
   };
 
@@ -84,16 +97,15 @@ const TagPage = (props) => {
         className="RootTagItem"
         style={{ paddingLeft: connectorPaddingLeft }}
         tag={null}
-        deleteTag={null}
         addTag={props.postTagRequest}
       />
     </div>
   );
 };
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: RootState): MapStateToProps => ({
   tags: getTags(state),
 });
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch: ThunkDispatch): MapDispatchToProps => ({
   postTagRequest: (data) => dispatch(postTagRequest(data)),
   patchTagRequest: (id, data) => dispatch(patchTagRequest(id, data)),
   getTagsRequest: () => dispatch(getTagsRequest()),

@@ -222,11 +222,12 @@ const StyledTagForm = styled(TagForm)`
 `;
 
 type TagItemProps = {
-  tag: TagNode;
-  deleteTag: (id: string) => Promise<any>;
+  tag: TagNode | null;
+  deleteTag?: (id: string) => Promise<any>;
   addTag: (o: { [key: string]: any }) => Promise<any>;
-  updateTag: (id: string, v: FormValues) => Promise<any>;
+  updateTag?: (id: string, v: FormValues) => Promise<any>;
   className?: string;
+  style?: any;
 };
 const TagItem = ({
   tag,
@@ -258,9 +259,11 @@ const TagItem = ({
     });
   };
   const onAcceptEdit = (vals: FormValues) => {
-    updateTag(tag.id, vals).then(() => {
-      setExpandedEdit(false);
-    });
+    if (tag && updateTag) {
+      updateTag(tag.id, vals).then(() => {
+        setExpandedEdit(false);
+      });
+    }
   };
 
   return (
@@ -283,7 +286,9 @@ const TagItem = ({
               </NameValueBlocks>
               <DeleteConfirmationDialog
                 onAccept={() => {
-                  deleteTag(tag.id);
+                  if (deleteTag) {
+                    deleteTag(tag.id);
+                  }
                 }}
               />
               <Button onClick={expandEdit} type="minimal">
