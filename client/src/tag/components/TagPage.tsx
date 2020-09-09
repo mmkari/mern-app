@@ -22,6 +22,8 @@ import TagItem, {
 import { Tag } from 'tag/types';
 import { RootState, ThunkDispatch } from 'core/types';
 
+import AddTagForm from 'tag/components/AddTagForm';
+
 const connectorStylesLeft = css`
   &::after {
     ${commonConnectorStyles}
@@ -34,7 +36,6 @@ const connectorStylesLeft = css`
     // bottom: 10px;
     top: 0;
   }
-
 `;
 
 const TagList = styled.ul`
@@ -78,6 +79,7 @@ const TagPage = (props: TagPageProps) => {
 
   return (
     <div className="TagPage">
+      {/* <AddTagForm values={{}} onChange={() => {}} /> */}
       <h1>TAGS</h1>
       {/* <DashedButton onClick={undefined}>ADD2</DashedButton> */}
       {tags && (
@@ -111,7 +113,4 @@ const mapDispatchToProps = (dispatch: ThunkDispatch): MapDispatchToProps => ({
   getTagsRequest: () => dispatch(getTagsRequest()),
   deleteTag: (id) => dispatch(deleteTagRequest(id)),
 });
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TagPage);
+export default connect(mapStateToProps, mapDispatchToProps)(TagPage);

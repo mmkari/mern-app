@@ -172,23 +172,29 @@ class Movies extends React.Component<MoviesProps> {
     this.props.setFilters(updatedFilters);
   };
 
-  onStarFilterChange = (option: SelectOption, name: string) => {
+  onStarFilterChange = (option: SelectOption, name?: string) => {
     const { filters } = this.props;
     const { minRating: prevMinRating, maxRating: prevMaxRating } = filters;
 
-    const updatedFilters = { ...filters, [name]: option };
-    const { value } = option;
-    if (name === 'minRating' && prevMaxRating && prevMaxRating.value < value) {
-      updatedFilters.maxRating = undefined; // set to max
-    } else if (
-      name === 'maxRating' &&
-      prevMinRating &&
-      prevMinRating.value > value
-    ) {
-      updatedFilters.minRating = undefined; // set to min
-    }
+    if (name) {
+      const updatedFilters = { ...filters, [name]: option };
+      const { value } = option;
+      if (
+        name === 'minRating' &&
+        prevMaxRating &&
+        prevMaxRating.value < value
+      ) {
+        updatedFilters.maxRating = undefined; // set to max
+      } else if (
+        name === 'maxRating' &&
+        prevMinRating &&
+        prevMinRating.value > value
+      ) {
+        updatedFilters.minRating = undefined; // set to min
+      }
 
-    this.props.setFilters(updatedFilters);
+      this.props.setFilters(updatedFilters);
+    }
   };
 
   removeTagFilter = () => {
