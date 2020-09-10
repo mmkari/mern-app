@@ -30,6 +30,7 @@ import CheckIcon from '@material-ui/icons/Check';
 import ClearIcon from '@material-ui/icons/Clear';
 
 import { RootState, ThunkDispatch } from 'core/types';
+import { OnChangeFunction } from 'input/types';
 
 const Container = styled.div`
   display: flex;
@@ -92,7 +93,7 @@ const MoviePage = (props: any) => {
     return <div>Loading...</div>;
   }
 
-  const onChange = (name: string, value: string) => {
+  const onChange: OnChangeFunction = (name, value) => {
     setValues((prev) => ({ ...prev, [name]: value }));
   };
 
@@ -161,7 +162,4 @@ const mapDispatchToProps = (dispatch: ThunkDispatch) => ({
   patchMovieRequest: (id: string, data: any) =>
     dispatch(patchMovieRequest(id, data)),
 });
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(MoviePage);
+export default connect(mapStateToProps, mapDispatchToProps)(MoviePage);

@@ -3,8 +3,14 @@ import { StarPicker } from 'react-star-picker';
 
 import TextInput from 'input/TextInput';
 import Button from 'input/Button';
+import { OnChangeFunction } from 'input/types';
 
-const ReviewForm = ({ onChange, values, onSubmit }) => {
+type ReviewFormProps = {
+  onChange: OnChangeFunction;
+  values: { [key: string]: any };
+  onSubmit: () => void;
+};
+const ReviewForm = ({ onChange, values, onSubmit }: ReviewFormProps) => {
   const onClick = () => {
     if (values.text && values.text.length > 0 && values.rating) {
       onSubmit();
@@ -16,7 +22,7 @@ const ReviewForm = ({ onChange, values, onSubmit }) => {
       <TextInput
         value={values ? values.text : ''}
         label="Text: "
-        onChange={(val) => onChange('text', val)}
+        onChange={(val: any) => onChange('text', val)}
       />
       {/* <TagInput /> */}
       <StarPicker

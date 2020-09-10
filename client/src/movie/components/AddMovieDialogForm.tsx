@@ -9,10 +9,11 @@ import TagSelect from 'tag/components/TagSelect';
 import SwitchButton from 'react-switch-input';
 import { AddMovieDialogFormValues } from 'movie/types';
 
+import { OnChangeFunction, SelectOption } from 'input/types';
 // import Tooltip from 'core/components/Tooltip';
 
 type AddMovieDialogFormProps = {
-  onChange: (name: string, value: string | number | boolean | Object) => void;
+  onChange: OnChangeFunction;
   values: AddMovieDialogFormValues;
 };
 const AddMovieDialogForm = ({ onChange, values }: AddMovieDialogFormProps) => {
@@ -41,7 +42,7 @@ const AddMovieDialogForm = ({ onChange, values }: AddMovieDialogFormProps) => {
         /> */}
       <TagSelect
         value={values.tagOption}
-        onChange={(value: Object) => {
+        onChange={(value: SelectOption) => {
           onChange('tagOption', value);
         }}
       />

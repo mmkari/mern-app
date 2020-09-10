@@ -7,14 +7,14 @@ type SelectInputProps = {
   value: any;
   name?: string;
   onChange: (option: SelectOption, name?: string) => void;
-  options: any[];
+  options: SelectOption[];
 };
-const SelectInput = ({
+const SelectInput: React.FunctionComponent<SelectInputProps> = ({
   value,
   name,
   onChange: onChangeProp,
   options,
-}: SelectInputProps) => {
+}) => {
   const onChange = (option: any) => {
     onChangeProp(option, name);
   };

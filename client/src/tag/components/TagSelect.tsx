@@ -22,7 +22,7 @@ type MapDispatchToProps = {
 type TagSelectProps = MapStateToProps &
   MapDispatchToProps & {
     value: any;
-    onChange: (value: { value: string; label: string }) => void;
+    onChange: (value: SelectOption) => void;
     style?: any;
   };
 type TagSelectState = {};

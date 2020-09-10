@@ -36,6 +36,7 @@ import { Movie as MovieType } from 'movie/types';
 import { Tag as TagType, TagOption } from 'tag/types';
 import { SelectOption } from 'input/types';
 import { BoundingClientRect, RootState, ThunkDispatch } from 'core/types';
+import { SortOption } from 'movieTable/types';
 
 const TableHeading = styled.div`
   display: flex;
@@ -115,18 +116,13 @@ const Count = ({ value }: any) => {
   );
 };
 
-const ratingFilterOptions = [
+const ratingFilterOptions: SelectOption[] = [
   { value: 1, label: '1' },
   { value: 2, label: '2' },
   { value: 3, label: '3' },
   { value: 4, label: '4' },
   { value: 5, label: '5' },
 ];
-
-type SortOption = {
-  sortBy: string;
-  sortDirection: string;
-};
 
 type MapStateToProps = {
   movies: null | MovieType[];
@@ -164,7 +160,7 @@ class Movies extends React.Component<MoviesProps> {
     this.props.getMoviesRequest(query);
   }
 
-  addTagFilter = (option: TagOption) => {
+  addTagFilter = (option: SelectOption) => {
     const { filters } = this.props;
 
     // TODO support tag array
@@ -316,7 +312,6 @@ class Movies extends React.Component<MoviesProps> {
               onSort={this.onSort}
               sortBy={sortBy}
               sortDirection={sortDirection}
-              averageRatingsByMovieId={averageRatingsByMovieId}
             />
           </div>
         )}

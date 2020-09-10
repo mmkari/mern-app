@@ -9,11 +9,11 @@ import { StarPicker } from 'react-star-picker';
 
 // import SwitchButton from './SwitchButton';
 import SwitchButton from 'react-switch-input';
-
+import { OnChangeFunction } from 'input/types';
 // import Tooltip from 'core/components/Tooltip';
 
 type FormParentProps = {
-  onChange: (name: string, value: any) => void;
+  onChange: OnChangeFunction;
   values: any;
 };
 type FormParentState = {
