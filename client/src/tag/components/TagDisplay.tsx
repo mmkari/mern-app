@@ -36,7 +36,7 @@ class TagDisplay extends React.Component<TagDisplayProps> {
     // }
 
     const selected = (value ? [value] : [])
-      .map((tagId) => tagsById[tagId])
+      .map((tagId) => tagsById[tagId] || { name: '?' })
       .filter((t) => !!t);
 
     return (
@@ -64,7 +64,4 @@ const mapDispatchToProps = (dispatch: ThunkDispatch) => ({
   //   deleteTag: (id) => dispatch(deleteTagRequest(id)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(StyledTagDisplay);
+export default connect(mapStateToProps, mapDispatchToProps)(StyledTagDisplay);

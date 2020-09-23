@@ -37,7 +37,7 @@ const AddMovieDialog = ({ onAccept }: AddMovieDialogProps) => {
       <FormConfirmation
         title={'Add movie'}
         contentRenderer={({ setValue, values }: ContentRendererProps) => (
-          <div>
+          <div style={{ width: '500px', height: '300px' }}>
             <AddMovieDialogForm onChange={setValue} values={values} />
           </div>
         )}

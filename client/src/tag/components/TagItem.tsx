@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 import Button from 'input/Button';
 import DeleteConfirmationDialog from 'core/components/DeleteConfirmationDialog';
 import classnames from 'classnames';
-import TextInput from 'input/TextInput';
+import { TextInput } from 'input/TextInput';
 
 import Add from '@material-ui/icons/Add';
 import Clear from '@material-ui/icons/Clear';

@@ -223,7 +223,7 @@ class Movies extends React.Component<MoviesProps> {
         {({ ref, dimensions }: MovieContainerRenderProps) => (
           <div className="Movies" ref={ref}>
             <TableHeading>
-              <h2>MAIN PAGE</h2>
+              <h2>MOVIES</h2>
               <AddMovieDialog onAccept={this.onSubmit} />
             </TableHeading>
             <TableFilters>

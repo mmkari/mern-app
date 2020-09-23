@@ -41,6 +41,10 @@ const MoviePageContainer = styled.div`
   display: flex;
   justify-content: space-around;
 `;
+const ReviewsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
 const getInitialValues = () => ({
   text: '',
@@ -122,7 +126,7 @@ const MoviePage = (props: any) => {
           <StyledRatingDisplay value={avgRating || 0} showRatingOnHover />
 
           <label>TAGS</label>
-          {activeMovie.tags ? (
+          {(activeMovie.tags || []).length ? (
             <TagDisplay value={activeMovie.tags[0]} />
           ) : (
             'none'
@@ -137,8 +141,7 @@ const MoviePage = (props: any) => {
         </Container>
       </MoviePageContainer>
       <div>
-        <h1>REVIEWS?</h1>
-        <div>List reviews here</div>
+        <h1>REVIEWS</h1>
         <ReviewForm onChange={onChange} values={values} onSubmit={onSubmit} />
         <Reviews items={activeMovieReviews} />
       </div>

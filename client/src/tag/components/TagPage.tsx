@@ -22,7 +22,7 @@ import TagItem, {
 import { Tag } from 'tag/types';
 import { RootState, ThunkDispatch } from 'core/types';
 
-import AddTagForm from 'tag/components/AddTagForm';
+// import AddTagForm from 'tag/components/AddTagForm';
 
 const connectorStylesLeft = css`
   &::after {

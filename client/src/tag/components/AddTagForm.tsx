@@ -42,9 +42,9 @@ class FormParent extends React.Component<FormParentProps, FormParentState> {
     return (
       <div className="Form">
         {/* <Tooltip content="CONTENT" tooltip="TIP is here" show /> */}
+        <label>Title: </label>
         <TextInput
           value={values ? values.title : ''}
-          label="Title: "
           onChange={(val: any) => onChange('title', val)}
           error={errors?.title}
         />
