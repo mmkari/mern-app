@@ -2,7 +2,24 @@ import * as React from 'react';
 import styled, { keyframes } from 'styled-components';
 import RatingDisplay from 'react-verdict';
 
-const CustomStarRendererStar = ({ color, className, index, type }) => {
+type StyledRatingDisplayProps = {
+  value: number;
+  showRatingOnHover?: boolean;
+};
+type CustomRendererProps = {
+  value: number;
+  index: number;
+  type: string;
+};
+
+type CustomStarRendererProps = CustomRendererProps & {
+  className?: string;
+};
+const CustomStarRendererStar = ({
+  className,
+  index,
+  type,
+}: CustomStarRendererProps) => {
   return (
     <div className={className}>
       <svg
@@ -72,11 +89,14 @@ const StyledCustomStarRendererStar = styled(CustomStarRendererStar)`
     }
   }
 `;
-const customStarRenderer = (props) => (
+const customStarRenderer = (props: CustomRendererProps) => (
   <StyledCustomStarRendererStar {...props} className={props.type} />
 );
 
-const StyledRatingDisplay = ({ value, showRatingOnHover }) => (
+const StyledRatingDisplay = ({
+  value,
+  showRatingOnHover,
+}: StyledRatingDisplayProps) => (
   <StyledDisplay
     value={value}
     showRatingOnHover={showRatingOnHover}
