@@ -3,7 +3,11 @@ import styled from 'styled-components';
 import classnames from 'classnames';
 import { Link } from 'react-router-dom';
 
-const AppHeader = ({ height, className }) => {
+type AppHeaderProps = {
+  height: number;
+  className?: string;
+};
+const AppHeader = ({ height, className }: AppHeaderProps) => {
   //
   return (
     <div className={classnames('App-header', className)}>
