@@ -7,9 +7,22 @@ import classnames from 'classnames';
 import { getTagsRequest } from 'tag/actions';
 
 import { getTags, getTagsById } from 'tag/selectors';
+import { TagsByIdMap } from 'tag/types';
+import { RootState, ThunkDispatch } from 'core/types';
 
+type MapDispatchToProps = {
+  getTagsRequest: () => void;
+};
+type MapStateToProps = {
+  tagsById: TagsByIdMap;
+};
+type ReduxProps = MapDispatchToProps & MapStateToProps;
+type TagDisplayProps = {
+  value: number;
+  className?: string;
+} & ReduxProps;
 // reads all tags from store, props can define list of nodes to include as options
-class TagDisplay extends React.Component {
+class TagDisplay extends React.Component<TagDisplayProps> {
   componentDidMount = () => {
     // TODO only make sure selected tags exist in store
     this.props.getTagsRequest();
@@ -23,7 +36,7 @@ class TagDisplay extends React.Component {
     // }
 
     const selected = (value ? [value] : [])
-      .map((tagId) => tagsById[tagId])
+      .map((tagId) => tagsById[tagId] || { name: '?' })
       .filter((t) => !!t);
 
     return (
@@ -42,16 +55,13 @@ const StyledTagDisplay = styled(TagDisplay)`
   justify-content: center;
 `;
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: RootState) => ({
   tagsById: getTagsById(state),
 });
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch: ThunkDispatch) => ({
   //   postTagRequest: (data) => dispatch(postTagRequest(data)),
   getTagsRequest: () => dispatch(getTagsRequest()),
   //   deleteTag: (id) => dispatch(deleteTagRequest(id)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(StyledTagDisplay);
+export default connect(mapStateToProps, mapDispatchToProps)(StyledTagDisplay);

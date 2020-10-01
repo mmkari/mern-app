@@ -7,25 +7,30 @@ import {
   PATCH_MOVIE_SUCCESS,
   SET_ACTIVE_MOVIE,
   // SET_FILTERED_IDS,
-} from 'movie/actions';
+  MovieApiResponse,
+  MovieState,
+  Movie,
+  MovieActionType,
+  MoviesByIdMap,
+} from 'movie/types';
 
 import produce from 'immer';
 
-const initialState = {
+const initialState: MovieState = {
   activeMovieId: null,
   filteredIds: null, // TODO decouple table filtering from movie store
   moviesById: {},
 };
 
-const parseMovie = (movie) => ({
+const parseMovie = (movie: MovieApiResponse): Movie => ({
   id: movie._id,
-  title: movie.title,
-  fixed: movie.fixed,
-  averageRating: movie.averageRating,
+  title: movie.title || '',
+  fixed: movie.fixed || false,
+  averageRating: !movie.averageRating ? 0 : movie.averageRating,
   tags: movie.tags || [], // preserve empty arrays
 });
 
-export default (state = initialState, action) =>
+export default (state = initialState, action: MovieActionType): MovieState =>
   produce(state, (draft) => {
     switch (action.type) {
       case SET_ACTIVE_MOVIE:
@@ -46,24 +51,23 @@ export default (state = initialState, action) =>
         draft.moviesById[movie._id] = parseMovie(movie);
         return;
       case DELETE_MOVIE_SUCCESS: {
-        const { [action.payload.id]: deleted, ...rest } = draft.moviesById;
+        const {
+          [action.payload.id]: deleted,
+          ...rest
+        }: MoviesByIdMap = draft.moviesById;
         draft.moviesById = rest;
         return;
       }
       case POST_MOVIE_SUCCESS: {
-        if (action.payload.data) {
-          draft.moviesById[action.payload.data._id] = parseMovie(
-            action.payload.data
-          );
+        const data: MovieApiResponse = action.payload.data;
+        if (data) {
+          draft.moviesById[data._id] = parseMovie(data);
         }
         return;
       }
       case PATCH_MOVIE_SUCCESS: {
-        draft.moviesById[action.payload.id] = {
-          id: action.payload.id,
-          ...draft.moviesById[action.payload.id],
-          ...action.payload.data,
-        };
+        const data: MovieApiResponse = action.payload.data;
+        draft.moviesById[action.payload.id] = parseMovie(data);
       }
     }
   });

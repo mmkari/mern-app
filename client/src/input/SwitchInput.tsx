@@ -1,7 +1,13 @@
 import * as React from 'react';
 import Switch from '@material-ui/core/Switch';
 
-const SwitchInput = ({ label, value, checked, onChange }) => {
+type SwitchInputProps = {
+  label?: string;
+  value: string | number;
+  checked: boolean;
+  onChange: (value: string | number, checked: boolean) => void;
+};
+const SwitchInput = ({ label, value, checked, onChange }: SwitchInputProps) => {
   return (
     <div>
       {label && <label>{label}</label>}

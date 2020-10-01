@@ -1,15 +1,20 @@
 import apiRequest from 'core/api';
+import { ThunkResult } from 'core/types';
 
-export const GET_MOVIES_SUCCESS = 'actions/GET_MOVIES_SUCCESS';
-export const DELETE_MOVIE_SUCCESS = 'actions/DELETE_MOVIE_SUCCESS';
-export const POST_MOVIE_SUCCESS = 'actions/POST_MOVIE_SUCCESS';
-export const PATCH_MOVIE_SUCCESS = 'actions/PATCH_MOVIE_SUCCESS';
+import {
+  GET_MOVIES_SUCCESS,
+  GET_MOVIE_SUCCESS,
+  DELETE_MOVIE_SUCCESS,
+  POST_MOVIE_SUCCESS,
+  PATCH_MOVIE_SUCCESS,
+  SET_ACTIVE_MOVIE,
+  // SET_FILTERED_IDS,
+  MovieApiResponse,
+  MovieActionType,
+  MoviesQuery,
+} from 'movie/types';
 
-export const SET_ACTIVE_MOVIE = 'actions/SET_ACTIVE_MOVIE';
-// export const SET_FILTERED_IDS = 'actions/SET_FILTERED_IDS'; // decouple
-export const GET_MOVIE_SUCCESS = 'actions/GET_MOVIE_SUCCESS';
-
-export const setActiveMovie = (id) => {
+export const setActiveMovie = (id: string) => {
   return {
     type: SET_ACTIVE_MOVIE,
     payload: id,
@@ -23,7 +28,10 @@ export const setActiveMovie = (id) => {
 //   };
 // };
 
-export const getMoviesSuccess = (data, query) => {
+export const getMoviesSuccess = (
+  data: MovieApiResponse[],
+  query: any
+): MovieActionType => {
   return {
     type: GET_MOVIES_SUCCESS,
     payload: data,
@@ -31,35 +39,38 @@ export const getMoviesSuccess = (data, query) => {
   };
 };
 
-export const getMovieSuccess = (data) => {
+export const getMovieSuccess = (data: MovieApiResponse): MovieActionType => {
   return {
     type: GET_MOVIE_SUCCESS,
     payload: data,
   };
 };
 
-export const deleteMovieSuccess = (id) => {
+export const deleteMovieSuccess = (id: string): MovieActionType => {
   return {
     type: DELETE_MOVIE_SUCCESS,
     payload: { id },
   };
 };
 
-export const postMovieSuccess = (data) => {
+export const postMovieSuccess = (data: MovieApiResponse): MovieActionType => {
   return {
     type: POST_MOVIE_SUCCESS,
     payload: { data },
   };
 };
 
-export const patchMovieSuccess = (id, data) => {
+export const patchMovieSuccess = (
+  id: string,
+  data: MovieApiResponse
+): MovieActionType => {
   return {
     type: PATCH_MOVIE_SUCCESS,
     payload: { id, data },
   };
 };
 
-export const getMovieRequest = (id) => (dispatch) =>
+export const getMovieRequest = (id: string): ThunkResult => (dispatch) =>
   apiRequest(`movies/${id}`)
     .then((res) => {
       dispatch(getMovieSuccess(res));
@@ -67,13 +78,17 @@ export const getMovieRequest = (id) => (dispatch) =>
     })
     .catch();
 
-export const getMoviesAggregateRatingGroupsRequest = (query) => (dispatch) =>
+export const getMoviesAggregateRatingGroupsRequest = (): ThunkResult => (
+  dispatch
+) =>
   apiRequest('movies/aggregate/rating_groups')
     .then((res) => res)
     .catch();
 // .then((res) => dispatch(getMoviesSuccess(res, query)))
 
-export const getMoviesRequest = (query) => (dispatch) =>
+export const getMoviesRequest = (query: MoviesQuery): ThunkResult => (
+  dispatch
+) =>
   apiRequest('movies', {
     query: query,
   })
@@ -86,17 +101,22 @@ export const getMoviesRequest = (query) => (dispatch) =>
     })
     .catch();
 
-export const postMovieRequest = (data) => (dispatch) =>
+export const postMovieRequest = (data: MovieApiResponse): ThunkResult => (
+  dispatch
+) =>
   apiRequest(`movies`, {
     method: 'post',
     data: data,
   })
-    .then((res) => {
+    .then((res: MovieApiResponse) => {
       dispatch(postMovieSuccess(res));
     })
     .catch();
 
-export const patchMovieRequest = (id, data) => (dispatch) =>
+export const patchMovieRequest = (
+  id: string,
+  data: MovieApiResponse
+): ThunkResult => (dispatch) =>
   apiRequest(`movies/${id}`, {
     method: 'patch',
     data: data,
@@ -106,7 +126,7 @@ export const patchMovieRequest = (id, data) => (dispatch) =>
     })
     .catch();
 
-export const deleteMovieRequest = (id) => (dispatch) =>
+export const deleteMovieRequest = (id: string): ThunkResult => (dispatch) =>
   apiRequest(`movies/${id}`, { method: 'delete' })
     .then(() => dispatch(deleteMovieSuccess(id)))
     .catch();

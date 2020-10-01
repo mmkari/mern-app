@@ -1,5 +1,9 @@
 import { createSelector } from 'reselect';
-const getTagsById = (state) => state.tagReducers.tagsById;
+import { Tag, TagsByIdMap, TagNode } from 'tag/types';
+import { RootState } from 'core/types';
+
+const getTagsById = (state: RootState): TagsByIdMap =>
+  state.tagReducers.tagsById;
 
 const getTags = createSelector(
   [getTagsById],
@@ -8,8 +12,8 @@ const getTags = createSelector(
       // return Object.values(tagsById)
 
       // generate map
-      const map = {};
-      const res = [];
+      const map: { [id: string]: TagNode } = {};
+      const res: Tag[] = [];
       const items = Object.values(tagsById).map((o) => ({ ...o })); // clone array of objects
       // initialize map
       items.forEach((item) => {
@@ -19,10 +23,9 @@ const getTags = createSelector(
       // add children
       items.forEach((item) => {
         if (item.parentId) {
-          if (map[item.parentId]) {
-            map[item.parentId].children.push(item);
-          } else {
-            res.push(item); // REMOVE!
+          const parent: TagNode = map[item.parentId];
+          if (parent && parent.children) {
+            parent.children.push(item);
           }
           // otherwise tag is orphaned
         } else {

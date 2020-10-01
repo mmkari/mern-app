@@ -1,10 +1,8 @@
 import { takeEvery, put, call, select } from 'redux-saga/effects';
 
-import {
-  GET_MOVIES_SUCCESS,
-  getMoviesRequest,
-  getMoviesSuccess,
-} from 'movie/actions';
+import { GET_MOVIES_SUCCESS } from 'movie/types';
+
+import { getMoviesRequest, getMoviesSuccess } from 'movie/actions';
 
 import { setFilteredResults, SET_FILTERS } from 'movieTable/actions';
 import apiRequest from 'core/api';

@@ -18,7 +18,10 @@ const ReviewListItem = styled.li`
   }
 `;
 
-const Review = ({ items }) => {
+type ReviewProps = {
+  items: { rating: number; text: string }[];
+};
+const Review = ({ items }: ReviewProps) => {
   return (
     <ReviewList>
       {items.map((i) => (

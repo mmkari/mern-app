@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
 
 import {
   setActiveMovie,
@@ -28,6 +29,9 @@ import Reviews from 'review/components/Reviews';
 import CheckIcon from '@material-ui/icons/Check';
 import ClearIcon from '@material-ui/icons/Clear';
 
+import { RootState, ThunkDispatch } from 'core/types';
+import { OnChangeFunction } from 'input/types';
+
 const Container = styled.div`
   display: flex;
   align-items: center;
@@ -37,13 +41,34 @@ const MoviePageContainer = styled.div`
   display: flex;
   justify-content: space-around;
 `;
+const ReviewsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
 const getInitialValues = () => ({
   text: '',
   rating: null,
 });
 
-const MoviePage = (props) => {
+type MapDispatchToProps = {
+  setActiveMovieRequest: (id: string | null) => Promise<any>;
+  getMovieRequest: (id: string) => Promise<any>;
+  getReviewsRequest: (query: Object) => Promise<any>;
+  postReviewRequest: (data: Object) => Promise<any>;
+  getAverageRatingsByMovie: (query: Object) => Promise<any>;
+  patchMovieRequest: (id: string, data: Object) => Promise<any>;
+};
+type MapStateToProps = {
+  activeMovie: null | any;
+  activeMovieReviews: any;
+  averageRatingsByMovieId: { [id: string]: number };
+};
+type MoviePageProps = MapDispatchToProps &
+  MapStateToProps & {
+    match: { params: { id: string } };
+  };
+const MoviePage = (props: any) => {
   const [values, setValues] = React.useState(getInitialValues());
 
   React.useEffect(() => {
@@ -72,7 +97,7 @@ const MoviePage = (props) => {
     return <div>Loading...</div>;
   }
 
-  const onChange = (name, value) => {
+  const onChange: OnChangeFunction = (name, value) => {
     setValues((prev) => ({ ...prev, [name]: value }));
   };
 
@@ -82,7 +107,7 @@ const MoviePage = (props) => {
   };
 
   // TODO use patchMovieRequest
-  const updateRating = (id, rating) => {
+  const updateRating = (id: string, rating: number) => {
     // this.props.patchMovieRequest(id, { rating });
   };
 
@@ -101,7 +126,7 @@ const MoviePage = (props) => {
           <StyledRatingDisplay value={avgRating || 0} showRatingOnHover />
 
           <label>TAGS</label>
-          {activeMovie.tags ? (
+          {(activeMovie.tags || []).length ? (
             <TagDisplay value={activeMovie.tags[0]} />
           ) : (
             'none'
@@ -116,31 +141,28 @@ const MoviePage = (props) => {
         </Container>
       </MoviePageContainer>
       <div>
-        <h1>REVIEWS?</h1>
-        <div>List reviews here</div>
+        <h1>REVIEWS</h1>
         <ReviewForm onChange={onChange} values={values} onSubmit={onSubmit} />
         <Reviews items={activeMovieReviews} />
       </div>
     </div>
   );
 };
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: RootState): MapStateToProps => ({
   activeMovie: getActiveMovie(state),
   activeMovieReviews: getActiveMovieReviews(state),
   averageRatingsByMovieId: getAverageRatingsByMovieId(state),
 });
-const mapDispatchToProps = (dispatch) => ({
-  setActiveMovieRequest: (id) => dispatch(setActiveMovie(id)),
-  getMovieRequest: (id) => dispatch(getMovieRequest(id)),
+const mapDispatchToProps = (dispatch: ThunkDispatch) => ({
+  setActiveMovieRequest: (id: string) => dispatch(setActiveMovie(id)),
+  getMovieRequest: (id: string) => dispatch(getMovieRequest(id)),
   //
-  getReviewsRequest: (query) => dispatch(getReviewsRequest(query)),
-  postReviewRequest: (data) => dispatch(postReviewRequest(data)),
+  getReviewsRequest: (query: any) => dispatch(getReviewsRequest(query)),
+  postReviewRequest: (data: any) => dispatch(postReviewRequest(data)),
   //
-  getAverageRatingsByMovie: (query) =>
+  getAverageRatingsByMovie: (query: any) =>
     dispatch(getReviewsAggregateAverageRatingByMovieRequest(query)),
-  patchMovieRequest: (id, data) => dispatch(patchMovieRequest(id, data)),
+  patchMovieRequest: (id: string, data: any) =>
+    dispatch(patchMovieRequest(id, data)),
 });
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(MoviePage);
+export default connect(mapStateToProps, mapDispatchToProps)(MoviePage);

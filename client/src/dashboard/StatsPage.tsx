@@ -2,13 +2,14 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 
 import {
-  setActiveMovie,
-  getMovieRequest,
+  // setActiveMovie,
+  // getMovieRequest,
   getMoviesAggregateRatingGroupsRequest,
 } from 'movie/actions';
-import { getActiveMovie } from 'movie/selectors';
+// import { getActiveMovie } from 'movie/selectors';
 
 import styled from 'styled-components';
+import { RootState, ThunkDispatch } from 'core/types';
 
 // CHART
 // import React, { PureComponent } from 'react';
@@ -24,17 +25,22 @@ import {
 } from 'recharts';
 //
 
-const Container = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-`;
+// const Container = styled.div`
+//   display: flex;
+//   align-items: center;
+//   flex-direction: column;
+// `;
 const MoviePageContainer = styled.div`
   display: flex;
   justify-content: space-around;
 `;
 
-const StatsRatingGroupsBarChart = ({ data }) => {
+type StatsRatingGroupsBarChartProps = {
+  data: any;
+};
+const StatsRatingGroupsBarChart = ({
+  data,
+}: StatsRatingGroupsBarChartProps) => {
   return (
     <BarChart
       width={500}
@@ -58,11 +64,16 @@ const StatsRatingGroupsBarChart = ({ data }) => {
   );
 };
 
-const StatsPage = (props) => {
+type StatsPageProps = {
+  getMoviesAggregateRatingGroupsRequest: () => Promise<any>;
+};
+const StatsPage = ({
+  getMoviesAggregateRatingGroupsRequest,
+}: StatsPageProps) => {
   const [ratingGroups, setRatingGroups] = React.useState(null);
 
   React.useEffect(() => {
-    props.getMoviesAggregateRatingGroupsRequest().then((agg) => {
+    getMoviesAggregateRatingGroupsRequest().then((agg) => {
       setRatingGroups(agg);
     });
   }, []); //
@@ -81,16 +92,13 @@ const StatsPage = (props) => {
     </div>
   );
 };
-const mapStateToProps = (state) => ({
-  activeMovie: getActiveMovie(state),
+const mapStateToProps = (state: RootState) => ({
+  // activeMovie: getActiveMovie(state),
 });
-const mapDispatchToProps = (dispatch) => ({
-  setActiveMovieRequest: (id) => dispatch(setActiveMovie(id)),
-  getMovieRequest: (id) => dispatch(getMovieRequest(id)),
+const mapDispatchToProps = (dispatch: ThunkDispatch) => ({
+  // setActiveMovieRequest: (id) => dispatch(setActiveMovie(id)),
+  // getMovieRequest: (id) => dispatch(getMovieRequest(id)),
   getMoviesAggregateRatingGroupsRequest: () =>
     dispatch(getMoviesAggregateRatingGroupsRequest()),
 });
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(StatsPage);
+export default connect(mapStateToProps, mapDispatchToProps)(StatsPage);

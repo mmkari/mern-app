@@ -11,7 +11,6 @@ const links = [
 ];
 
 const AppToolbar = () => {
-  //
   return (
     <div className="AppToolbar">
       {links.map((link) => {

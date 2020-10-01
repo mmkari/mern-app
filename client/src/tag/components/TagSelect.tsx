@@ -7,17 +7,32 @@ import { getTagsRequest } from '../actions';
 import { getTags } from '../selectors';
 import styled from 'styled-components';
 
-const TagSelectContainer = styled.div`
-  width: ${({ width }) => width || 100}px;
-`;
+import { Tag } from 'tag/types';
+import { SelectOption } from 'input/types';
+import { RootState, ThunkDispatch } from 'core/types';
 
+const TagSelectContainer = styled.div``;
+
+type MapStateToProps = {
+  tags: Tag[] | null;
+};
+type MapDispatchToProps = {
+  getTagsRequest: () => Promise<any>;
+};
+type TagSelectProps = MapStateToProps &
+  MapDispatchToProps & {
+    value: any;
+    onChange: (value: SelectOption) => void;
+    style?: any;
+  };
+type TagSelectState = {};
 // reads all tags from store, props can define list of nodes to include as options
-class TagSelect extends React.Component {
+class TagSelect extends React.Component<TagSelectProps, TagSelectState> {
   componentDidMount = () => {
     this.props.getTagsRequest();
   };
 
-  onChange = (selectedOption) => {
+  onChange = (selectedOption: SelectOption) => {
     const { onChange } = this.props;
     // const value = event.target.value
     // const value = selectedOption.value
@@ -33,7 +48,10 @@ class TagSelect extends React.Component {
     //     // ...
     // }
 
-    const options = tags.map((tag) => ({ value: tag.id, label: tag.name }));
+    const options = (tags || []).map((tag) => ({
+      value: tag.id,
+      label: tag.name,
+    }));
 
     return (
       <TagSelectContainer>
@@ -43,17 +61,14 @@ class TagSelect extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: RootState): MapStateToProps => ({
   tags: getTags(state),
 });
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch: ThunkDispatch): MapDispatchToProps => ({
   //   postTagRequest: (data) => dispatch(postTagRequest(data)),
   getTagsRequest: () => dispatch(getTagsRequest()),
   //   deleteTag: (id) => dispatch(deleteTagRequest(id)),
 });
 
 // export default TagSelect
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TagSelect);
+export default connect(mapStateToProps, mapDispatchToProps)(TagSelect);
