@@ -139,6 +139,7 @@ module.exports = {
       });
   },
   aggregate_ratingGroups: function (req, res, next) {
+    console.log("aggregate raging groups");
     const options = [
       {
         $group: {

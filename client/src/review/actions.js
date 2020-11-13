@@ -122,3 +122,8 @@ export const deleteReviewRequest = (id) => (dispatch) =>
   apiRequest(`reviews/${id}`, { method: 'delete' })
     .then(() => dispatch(deleteReviewSuccess(id)))
     .catch();
+
+export const getReviewsAggregateRatingGroupsRequest = () => (dispatch) =>
+  apiRequest('reviews/aggregate/rating_groups')
+    .then((res) => res)
+    .catch();

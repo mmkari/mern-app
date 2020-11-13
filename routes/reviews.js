@@ -15,4 +15,8 @@ router
   .route("/aggregate/average_rating_by_movie")
   .get(reviewsController.aggregate_averageRatingByMovie);
 
+router
+  .route("/aggregate/rating_groups")
+  .get(reviewsController.aggregate_ratingGroups);
+
 module.exports = router;

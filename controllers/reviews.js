@@ -138,4 +138,23 @@ module.exports = {
         res.status(500).json({ error: err });
       });
   },
+  aggregate_ratingGroups: function (req, res, next) {
+    console.log("aggregate raging groups");
+    const options = [
+      {
+        $group: {
+          _id: "$rating",
+          count: { $sum: 1 },
+        },
+      },
+    ];
+    Review.aggregate(options)
+      .exec()
+      .then((doc) => {
+        res.status(200).json(doc);
+      })
+      .catch((err) => {
+        res.status(500).json({ error: err });
+      });
+  },
 };

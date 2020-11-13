@@ -6,6 +6,8 @@ import {
   // getMovieRequest,
   getMoviesAggregateRatingGroupsRequest,
 } from 'movie/actions';
+import { getReviewsAggregateRatingGroupsRequest } from 'review/actions';
+
 // import { getActiveMovie } from 'movie/selectors';
 
 import styled from 'styled-components';
@@ -66,19 +68,25 @@ const StatsRatingGroupsBarChart = ({
 
 type StatsPageProps = {
   getMoviesAggregateRatingGroupsRequest: () => Promise<any>;
+  getReviewAggregateRatings: () => Promise<any>;
 };
 const StatsPage = ({
   getMoviesAggregateRatingGroupsRequest,
+  getReviewAggregateRatings,
 }: StatsPageProps) => {
   const [ratingGroups, setRatingGroups] = React.useState(null);
+  const [ratingGroups2, setRatingGroups2] = React.useState(null);
 
   React.useEffect(() => {
     getMoviesAggregateRatingGroupsRequest().then((agg) => {
       setRatingGroups(agg);
     });
+    getReviewAggregateRatings().then((res) => {
+      setRatingGroups2(res);
+    });
   }, []); //
 
-  if (!ratingGroups) {
+  if (!ratingGroups || !ratingGroups2) {
     return <div>Loading...</div>;
   }
 
@@ -88,6 +96,12 @@ const StatsPage = ({
       <h2>Rating Groups</h2>
       <MoviePageContainer>
         <StatsRatingGroupsBarChart data={ratingGroups} />
+      </MoviePageContainer>
+
+      <h1>Stats</h1>
+      <h2>Rating Groups per rating</h2>
+      <MoviePageContainer>
+        <StatsRatingGroupsBarChart data={ratingGroups2} />
       </MoviePageContainer>
     </div>
   );
@@ -100,5 +114,7 @@ const mapDispatchToProps = (dispatch: ThunkDispatch) => ({
   // getMovieRequest: (id) => dispatch(getMovieRequest(id)),
   getMoviesAggregateRatingGroupsRequest: () =>
     dispatch(getMoviesAggregateRatingGroupsRequest()),
+  getReviewAggregateRatings: () =>
+    dispatch(getReviewsAggregateRatingGroupsRequest()),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(StatsPage);
