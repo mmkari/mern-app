@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import MovieTable from 'movieTable/components/MovieTable';
@@ -33,7 +32,7 @@ import { getAverageRatingsByMovieId } from 'review/selectors';
 import useContainerDimensions from 'core/hooks';
 
 import { Movie as MovieType } from 'movie/types';
-import { Tag as TagType, TagOption } from 'tag/types';
+import { Tag as TagType } from 'tag/types';
 import { SelectOption } from 'input/types';
 import { BoundingClientRect, RootState, ThunkDispatch } from 'core/types';
 import { SortOption } from 'movieTable/types';
@@ -105,10 +104,6 @@ const MovieContainer = ({ children }: MovieContainerProps) => {
   }
 };
 
-const Sort = () => {
-  //
-  return <div>SORT COMP</div>;
-};
 const Count = ({ value }: any) => {
   //
   return (
@@ -215,7 +210,7 @@ class Movies extends React.Component<MoviesProps> {
   };
 
   render() {
-    const { filters, filterTags, averageRatingsByMovieId } = this.props;
+    const { filters, filterTags } = this.props;
     const { filterTag, sortBy, sortDirection, minRating, maxRating } = filters;
 
     return (

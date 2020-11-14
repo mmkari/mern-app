@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Dispatch } from 'redux';
 
 import {
   setActiveMovie,
@@ -40,10 +39,6 @@ const Container = styled.div`
 const MoviePageContainer = styled.div`
   display: flex;
   justify-content: space-around;
-`;
-const ReviewsContainer = styled.div`
-  display: flex;
-  flex-direction: column;
 `;
 
 const getInitialValues = () => ({

@@ -4,7 +4,7 @@ import {
   Table,
   Column,
   SortDirection,
-  TableCellRenderer,
+  // TableCellRenderer,
   TableCellProps,
   SortDirectionType,
 } from 'react-virtualized';

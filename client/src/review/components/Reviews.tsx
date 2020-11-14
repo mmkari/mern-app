@@ -25,7 +25,7 @@ const Review = ({ items }: ReviewProps) => {
   return (
     <ReviewList>
       {items.map((i) => (
-        <ReviewListItem>
+        <ReviewListItem key={`review-${i}`}>
           <RatingDisplay value={i.rating} />
           {i.text}
         </ReviewListItem>
