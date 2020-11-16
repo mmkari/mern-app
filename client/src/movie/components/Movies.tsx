@@ -89,6 +89,10 @@ const Toolbar = styled.div`
   justify-content: flex-end;
 `;
 
+const VisibilitySwitch = styled.div`
+  visibility: ${({ hidden }) => (hidden ? 'hidden' : 'inherit')};
+`;
+
 type MovieContainerProps = {
   children: React.ReactNode;
 };
@@ -135,7 +139,14 @@ type MapDispatchToProps = {
 };
 
 type MoviesProps = MapStateToProps & MapDispatchToProps & {};
-class Movies extends React.Component<MoviesProps> {
+type MoviesState = {
+  displayTable: boolean;
+};
+class Movies extends React.Component<MoviesProps, MoviesState> {
+  state = {
+    displayTable: true,
+  };
+
   componentDidMount() {
     this.getMovies(undefined);
     // TODO get average reviews in saga
@@ -207,6 +218,10 @@ class Movies extends React.Component<MoviesProps> {
   onSort = ({ sortBy, sortDirection }: SortOption) => {
     const updatedFilters = { ...this.props.filters, sortBy, sortDirection };
     this.props.setFilters(updatedFilters);
+  };
+
+  switchChange = (checked: boolean, name?: string) => {
+    this.setState({ displayTable: !checked });
   };
 
   render() {
@@ -288,26 +303,33 @@ class Movies extends React.Component<MoviesProps> {
                 <Count value={(this.props.movies || []).length} />
                 <ListIcon />
                 <SwitchButton
-                  checked={false}
-                  disabled
+                  checked={!this.state.displayTable}
+                  disabled={false}
                   width={40}
                   buttonRadius={12}
                   buttonPinRadius={12}
                   buttonBorderWidth={2}
+                  onChange={this.switchChange}
+                  name="tableSwitch"
                 />
                 <ViewModuleIcon />
               </Toolbar>
               {/* <Sort /> */}
             </ActiveTableFilters>
             {/* TODO add option to switch between table and grid layout */}
-            <MovieTable
-              height={dimensions.height - 50}
-              data={this.props.movies}
-              deleteMovie={this.props.deleteMovieRequest}
-              onSort={this.onSort}
-              sortBy={sortBy}
-              sortDirection={sortDirection}
-            />
+            <VisibilitySwitch hidden={!this.state.displayTable}>
+              <MovieTable
+                height={dimensions.height - 50}
+                data={this.props.movies}
+                deleteMovie={this.props.deleteMovieRequest}
+                onSort={this.onSort}
+                sortBy={sortBy}
+                sortDirection={sortDirection}
+              />
+            </VisibilitySwitch>
+            <VisibilitySwitch hidden={this.state.displayTable}>
+              CARDS HERE...
+            </VisibilitySwitch>
           </div>
         )}
       </MovieContainer>
