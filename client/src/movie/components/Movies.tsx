@@ -36,9 +36,8 @@ import { Tag as TagType } from 'tag/types';
 import { SelectOption } from 'input/types';
 import { BoundingClientRect, RootState, ThunkDispatch } from 'core/types';
 import { SortOption } from 'movieTable/types';
-import Grid from 'layout/Grid.jsx';
-import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
-import RatingDisplay from 'react-verdict';
+
+import MovieGrid from 'movieTable/components/MovieGrid';
 
 const TableHeading = styled.div`
   display: flex;
@@ -94,25 +93,6 @@ const Toolbar = styled.div`
 
 const VisibilitySwitch = styled.div`
   visibility: ${({ hidden }) => (hidden ? 'hidden' : 'inherit')};
-`;
-
-const MovieItem = styled.div`
-  margin: 1em;
-  padding: 2em 1em;
-  transition: background-color 0.4s;
-  // background-color: #eeeeee;
-  border: 1px solid lightgray;
-  :hover {
-    background-color: lightgray;
-
-    // img {
-    //   transform: scale(1.2);
-    // }
-  }
-
-  a {
-    color: gray;
-  }
 `;
 
 type MovieContainerProps = {
@@ -351,15 +331,7 @@ class Movies extends React.Component<MoviesProps, MoviesState> {
             </VisibilitySwitch>
             <VisibilitySwitch hidden={this.state.displayTable}>
               {/* CARDS HERE... */}
-              <Grid
-                items={this.props.movies}
-                render={({ item }: { item: any }) => (
-                  <MovieItem>
-                    <Link to={`/item/${item.id}`}>{item.title}</Link>
-                    <RatingDisplay value={item.averageRating || null} />
-                  </MovieItem>
-                )}
-              ></Grid>
+              <MovieGrid data={this.props.movies} />
             </VisibilitySwitch>
           </div>
         )}
