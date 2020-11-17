@@ -32,14 +32,43 @@ const MovieItem = styled.div`
 const ImagePlaceholder = styled.div.attrs({ className: 'ImagePlaceholder' })`
   margin: 1em;
   width: 100%;
-  // height: 50px;
-  padding-top: 100%;
-  background: linear-gradient(
-    45deg,
-    rgba(2, 0, 36, 1) 0%,
-    rgba(9, 9, 121, 1) 35%,
-    rgba(0, 212, 255, 1) 100%
-  );
+  height: auto;
+
+  position: relative;
+
+  &:after {
+    display: block;
+    padding-top: 100%;
+    top: 0;
+
+    background: linear-gradient(
+      45deg,
+      rgba(2, 0, 36, 1) 0%,
+      rgba(9, 9, 121, 1) 35%,
+      rgba(0, 212, 255, 1) 100%
+    );
+    content: ' ';
+    width: 100%;
+  }
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  & > div {
+    background: rgba(10, 10, 10, 0.5);
+    width: 100%;
+    position: absolute;
+    display: flex;
+    align-items: center;
+  }
+`;
+const ImageFront = styled.div.attrs({ className: 'ImageFront' })`
+  background: rgba(10, 10, 10, 0.5);
+  width: 100%;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 type MovieGridTypes = {
@@ -52,8 +81,11 @@ const MovieGrid = ({ data }: MovieGridTypes) => {
       render={({ item }: { item: any }) => (
         <MovieItem>
           <Link to={`/item/${item.id}`}>{item.title}</Link>
-          <ImagePlaceholder />
-          <RatingDisplay value={item.averageRating || null} />
+          <ImagePlaceholder>
+            <ImageFront>
+              <RatingDisplay value={item.averageRating || null} />
+            </ImageFront>
+          </ImagePlaceholder>
         </MovieItem>
       )}
     ></Grid>
