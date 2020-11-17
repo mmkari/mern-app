@@ -10,15 +10,15 @@ const GridContainer = styled.ul`
 const GridContainerItem = styled.li`
   width: 25%;
 
-  @media (max-width: 900px) {
+  @media (max-width: 1800px) {
     width: 25%;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 1050px) {
     width: 33%;
   }
 
-  @media (max-width: 650px) {
+  @media (max-width: 800px) {
     width: 50%;
   }
 
@@ -31,8 +31,12 @@ const Grid = ({ items, render }) => {
   //
   return (
     <GridContainer>
-      {items.map((item) => {
-        return <GridContainerItem>{render({ item })}</GridContainerItem>;
+      {items.map((item, i) => {
+        return (
+          <GridContainerItem key={`grid-item-${i}`}>
+            {render({ item })}
+          </GridContainerItem>
+        );
       })}
     </GridContainer>
   );
